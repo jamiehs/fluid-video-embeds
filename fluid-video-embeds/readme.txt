@@ -11,7 +11,9 @@ Make your "auto embedded" YouTube and Vimeo videos full width (100%) while maint
 
 == Description ==
 
-This plugin modifies the built-in Vimeo and YouTube oEmbed auto-embeds so they are full-width, and flexible while maintaining their original aspect ratio. 
+This plugin modifies the built-in Vimeo and YouTube oEmbed auto-embeds so they are full-width, and flexible while maintaining their original aspect ratio.
+
+See a live demo here: [Fluid Video Embeds Demo](http://jamie3d.com/fluid-video-embeds-demo/)
 
 **Requirements:** PHP5+, WordPress 3.3+
 
