@@ -1,6 +1,6 @@
 === Fluid Video Embeds ===
 Contributors: jamie3d
-Donate link: http://jamie3d.com/
+Donate Link: http://goo.gl/JTYF2
 Tags: video, youtube, vimeo, fluid, flexible, elastic, responsive, 100%, full width, embed, oEmbed
 Requires at least: 3.3
 Tested up to: 3.4.1
