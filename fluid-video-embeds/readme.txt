@@ -26,7 +26,7 @@ open APIs, I'm requesting information about each video server side (which is the
 *   This plugin uses some code from functions in [SlideDeck 2 Lite](http://wordpress.org/extend/plugins/slidedeck2/) for handling the fetching, caching, and organizing of video meta from the aforementioned providers. Please check out SlideDeck if you need your videos in a sweet jQuery Slider.
 *   The CSS used to create the 100% width effect was curated and posted by [Web Designer Wall](http://webdesignerwall.com) in their post about  [CSS: Elastic Videos](http://webdesignerwall.com/tutorials/css-elastic-videos).
 *   The original CSS is credited to [TJK Design](http://www.tjkdesign.com/articles/how-to-resize-videos-on-the-fly.asp).
-*   The above TJK article then in turn credits [A List Apart](http://www.alistapart.com/) for its artile titled: [Creating Intrinsic Ratios for Video](http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/)
+*   The above TJK article then in turn credits [A List Apart](http://www.alistapart.com/) for its article titled: [Creating Intrinsic Ratios for Video](http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/)
 
 == Installation ==
 
