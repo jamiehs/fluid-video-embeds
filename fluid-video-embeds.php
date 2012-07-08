@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Fluid Video Embeds
-Plugin URI: http://wordpress.org/extend/plugins/fluid-embeds/
+Plugin URI: http://wordpress.org/extend/plugins/fluid-video-embeds/
 Description: Makes your YouTube and Vimeo auto-embeds fluid/full width.
 Author: jamie3d
 Version: 1.0
