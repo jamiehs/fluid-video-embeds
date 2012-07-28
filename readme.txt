@@ -55,9 +55,15 @@ should only have a minimal impact.
 3. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seem black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
+= 1.0.1 =
+Added `wmode=transparent&` to the YouTube embed URL. This prevents YouTube videos from covering things like lightboxes and other overlapping content.
+
 = 1.0 =
 Initial release
 
 == Upgrade Notice ==
+= 1.0.1 =
+Added `wmode=transparent&` to the YouTube embed URL
+
 = 1.0 =
 Initial release
