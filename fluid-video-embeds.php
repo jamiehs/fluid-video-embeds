@@ -18,6 +18,7 @@ class FluidVideoEmbed{
     
     function __construct() {
         $this->cache_duration = self::$cache_duration;
+		$this->try_to_get_youtube_max_image = true;
         
         // A few constants...
         define( 'FVE_VERSION', 1.0 );
@@ -61,15 +62,18 @@ class FluidVideoEmbed{
                      * video is widescreen-ish. So this is likely the best we can do for now.
                      */
                     $padding = '75%';
-                    if( $this->meta['aspect'] == 'widescreen' )
+                    if( $this->meta['aspect'] == 'widescreen' ) {
                         $padding = '56.25%';
+                    }
                     
-                    return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe class="youtube-player" type="text/html" width="100%" height="100%" src="http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0" frameborder="0"></iframe></div>';
+                    //return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe class="youtube-player" type="text/html" width="100%" height="100%" src="http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0" frameborder="0"></iframe></div>';
+                    return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><img width="100%" src="' . $this->meta['full_image'] . '" /></div>';
                 break;
                 case 'vimeo':
                     $padding = ( $this->meta['aspect'] * 100 ) . '%';
                     
-                    return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe src="http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
+                    //return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe src="http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
+                    return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><img width="100%" src="' . $this->meta['full_image'] . '" /></div>';
                 break;
             }
         }
@@ -327,9 +331,12 @@ class FluidVideoEmbed{
                         $video_meta['permalink'] = 'http://www.youtube.com/watch?v=' . $video_id;
                         $video_meta['description'] = $response_json->entry->{'media$group'}->{'media$description'}->{'$t'};
                         $video_meta['thumbnail'] = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
-                        $video_meta['full_image'] = 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
+                        $video_meta['full_image'] = $this->get_youtube_max_thumbnail( $video_id );
                         $video_meta['created_at'] = strtotime( $response_json->entry->published->{'$t'} );
-                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+						$video_meta['aspect'] = 'widescreen';
+						if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
+	                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+						}
                         $video_meta['duration'] = $response_json->entry->{'media$group'}->{'yt$duration'}->{'seconds'};
                         
                         if( isset( $response_json->entry->author ) ) {
@@ -358,12 +365,56 @@ class FluidVideoEmbed{
 
         return $video_meta;
     }
+
+	/**
+	 * Get Maximum YouTube Thumbnail
+	 * 
+	 * YouTube maked it both easy and difficult to
+	 * get the highest resolution image for their videos.
+	 * Here we try to get the max resolution thumbnail and
+	 * if it returns a 404, then we simply serve the
+	 * medium quality version.
+	 * 
+	 * @param string $video_id
+	 * 
+	 * @return string The largest image we can get for this video
+	 */
+	function get_youtube_max_thumbnail( $video_id ) {
+		if( $this->try_to_get_youtube_max_image ) {
+			// The URL of the maximum resolution YouTube thumbnail
+			$max_res_url = 'http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg';
+			$cache_key = $max_res_url . 'max_res_test';
+			$cache_duration = 60 * 60 * 24 * 2; // Two days
+			
+	        // Attempt to read the cache for the response.
+	        $response_code = $this->cache_read( $cache_key );
+			
+			if( !$response_code ) {
+				// Ask YouTube for the maximum resolution image.
+	            $response = wp_remote_get( $max_res_url, array( 'sslverify' => false ) );
+				
+				// If the response is good, cache the response code.
+	            if( !is_wp_error( $response ) ) {
+	            	if( isset( $response['response']['code'] ) ) {
+		            	$this->cache_write( $cache_key, (string) $response['response']['code'], $cache_duration );
+	            	}
+	            }
+			}
+			
+        	// If the response code is not 404
+        	if( $response_code != '404' ) {
+				return $max_res_url;
+        	}
+		}
+		
+		return 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
+	}
     
     /**
      * Runs a simple MySQL query that clears any option from the wp_options table
      * that contains '_fve-cache-'
      */
-    static function clear_caches(){
+    static function clear_caches() {
         global $wpdb;
         
         // Delete all the fve transients that contain '_fve-cache-'
