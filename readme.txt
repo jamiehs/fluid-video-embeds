@@ -55,6 +55,9 @@ should only have a minimal impact.
 3. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
+= 1.0.2 =
+Adding a feed detection function that reverts to the default functionality for oEmbeds if the post is being viewed in a feed.
+
 = 1.0.1 =
 Added `wmode=transparent&` to the YouTube embed URL. This prevents YouTube videos from covering things like lightboxes and other overlapping content.
 
