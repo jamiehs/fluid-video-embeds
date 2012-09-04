@@ -45,8 +45,18 @@ class FluidVideoEmbed{
      * This filters Wordpress' built-in embeds and catches the URL if
      * it's one of the whitelisted providers. I'm only supporting YouTube and
      * Vimeo for now, but if demand is high, I might add more.
+	 * 
+	 * @uses $this->is_feed()
+	 * 
+	 * @return string filtered or unfiltered $html
      */
     function filter_video_embed($html, $url, $attr) {
+    	/**
+		 * If the content is being accessed via a RSS feed,
+		 * let's just enforce the default behavior.
+		 */
+    	if( $this->is_feed() ) return $html;
+		
         $this->provider_slug = $this->get_video_provider_slug_from_url( $url );
         
         if( in_array( $this->provider_slug, self::$available_providers ) ){
@@ -54,7 +64,6 @@ class FluidVideoEmbed{
             
             switch ( $this->provider_slug ) {
                 case 'youtube':
-                    
                     /**
                      * YouTube doesn't seem to provide width and or height for
                      * their videos. They only provide a 'widescreen' property if the
@@ -358,6 +367,24 @@ class FluidVideoEmbed{
 
         return $video_meta;
     }
+
+	/**
+	 * Is Feed?
+	 * 
+	 * An extension of the is_feed() function.
+	 * We first check WWordPress' built in method and if it passes,
+	 * then we say yes this is a feed. If it fails, we try to detect FeedBurner
+	 * 
+	 * @return boolean
+	 */
+	function is_feed(){
+		if( is_feed() ){
+			return true;
+		}elseif( preg_match( '/feedburner/', strtolower( $_SERVER['HTTP_USER_AGENT'] ) ) ){
+			return true;
+		}
+		return false;
+	}
     
     /**
      * Runs a simple MySQL query that clears any option from the wp_options table
