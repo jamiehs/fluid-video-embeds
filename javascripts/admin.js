@@ -6,7 +6,7 @@
  */
 
 (function($){
-	FluidVideoEmbeds = function(){
+	FluidVideoEmbedsAdmin = function(){
 		var self = this;
 		var elems = {
 			body: $('body')
@@ -22,7 +22,7 @@
 	
     $(document).ready(function(){
     	if( $('#element .selector').length ){
-	        window.FluidVideoEmbeds = new FluidVideoEmbeds();
+	        window.FluidVideoEmbedsAdmin = new FluidVideoEmbedsAdmin();
     	}
     });
 })(jQuery);

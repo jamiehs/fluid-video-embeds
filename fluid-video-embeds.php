@@ -35,6 +35,9 @@ class FluidVideoEmbed{
 			'fve_style' => 'iframe',
 		);
 		
+		$this->iframe_before_src = '<iframe src="';
+		$this->iframe_after_src = '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+		
 		$this->_add_hooks();
     }
     
@@ -47,8 +50,11 @@ class FluidVideoEmbed{
         // Filter the oEmbed response
         add_filter('embed_oembed_html', array( &$this, 'filter_video_embed' ), 16, 3);
 		
-        // Register all JavaScript files used by this plugin
+        // Add the Fluid Video Embeds Stylesheets
         add_action('wp_head', array( &$this, 'add_head_css' ) );
+		
+        // Add the Fluid Video Embeds JavaScript
+        add_action('wp_footer', array( &$this, 'add_footer_js' ) );
 		
 		// Options page for configuration
 		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -56,8 +62,14 @@ class FluidVideoEmbed{
 		// Output the styles for the admin area.
 		add_action( 'admin_menu', array( &$this, 'admin_print_styles' ) );
 		
+		// Register admin JavaScripts for this plugin
+		add_action( 'admin_menu', array( &$this, 'wp_register_admin_scripts' ), 1 );
+		
 		// Route requests for form processing
 		add_action( 'init', array( &$this, 'route' ) );
+		
+		// Enqueue the public scripts
+		add_action( 'init', array( &$this, 'enqueue_public_scripts' ) );
 		
 		// Add a settings link next to the "Deactivate" link on the plugin listing page.
 		add_filter( 'plugin_action_links', array( &$this, 'plugin_action_links' ), 10, 2 );
@@ -68,6 +80,18 @@ class FluidVideoEmbed{
 		// Register all Stylesheets for this plugin
 		add_action( 'init', array( &$this, 'wp_register_styles' ), 1 );
 	}
+	
+    /**
+     * Adds the Style tag to the head of the page.
+     * 
+     * I'm trying it this way because it might be easier than loading an 
+     * additional file for a small amount of CSS. We'll see...
+     */
+    function add_footer_js() {
+        echo '<!-- Start Fluid Video Embeds Script Tag -->' . "\n";
+        include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_javascript_variables.php' );
+        echo '<!-- End Fluid Video Embeds Script Tag -->' . "\n";
+    }
 	
     /**
      * Adds the Style tag to the head of the page.
@@ -245,6 +269,16 @@ class FluidVideoEmbed{
     }
 	
     /**
+     * Enqueue public scripts used by this plugin for enqueuing elsewhere
+     * 
+     * @uses wp_register_script()
+     */
+    function enqueue_public_scripts() {
+        // Admin JavaScript
+        wp_enqueue_script( "{$this->namespace}-public" );
+    }
+    
+    /**
      * Filter the Video Embeds
      * 
      * This filters Wordpress' built-in embeds and catches the URL if
@@ -282,6 +316,7 @@ class FluidVideoEmbed{
                     $thumbnail_left_offset = '0px';
                     if( $this->meta['aspect'] == 'widescreen' ) $wrapper_padding = '56.25%';
                     $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
+                    $image_embed_iframe_url = $iframe_url . '&autoplay=1';
                 break;
                 case 'vimeo':
                     $wrapper_padding = ( $this->meta['aspect'] * 100 ) . '%';
@@ -297,32 +332,21 @@ class FluidVideoEmbed{
 					}
 					
                     $iframe_url = 'http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0';
+                    $image_embed_iframe_url = $iframe_url . '&autoplay=1';
                 break;
             }
 			switch( $fve_style ){
 				case 'iframe':
-                    $output = '<div class="fve-video-wrapper ' . $this->provider_slug . '-player" style="padding-bottom:' . $wrapper_padding . ';">';
-                    $output .= '<iframe src="' . $iframe_url . '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-                    $output .= '</div>';
+		            ob_start( );
+		            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
+		            $output = ob_get_contents( );
+		            ob_end_clean( );
 				break;
 				case 'image':
-                    $output = '<div class="fve-video-wrapper fve-image-embed fve-thumbnail-image ' . $this->provider_slug . '" ';
-                    $output .= 'data-full-image="' . $this->meta['full_image'] . '" ';
-                    $output .= 'data-iframe-url="' . $iframe_url . '" ';
-                    $output .= 'style="'; // Open style tag
-                    $output .= 'padding-bottom:' . $wrapper_padding . ';';
-                    $output .= '"'; // Close style tag
-                    $output .= '>'; // End of open div tag
-                    
-                    $output .= '<img' . $image_width . $image_height . ' src="' . $this->meta['thumbnail'] . '"';
-                    $output .= 'style="'; // Open style tag
-                    $output .= 'top:' . $thumbnail_top_offset . ';';
-                    $output .= 'left:' . $thumbnail_left_offset . ';';
-                    $output .= '"'; // Close style tag
-                    $output .= ' />'; // Close image tag
-                    
-					$output .= '</div>'; // Close div tag
-				break;
+		            ob_start( );
+		            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_image_embed.php' );
+		            $output = ob_get_contents( );
+		            ob_end_clean( );				break;
 			}
 			return $output;
         }
@@ -699,13 +723,23 @@ class FluidVideoEmbed{
     }
         
     /**
+     * Register admin scripts used by this plugin for enqueuing elsewhere
+     * 
+     * @uses wp_register_script()
+     */
+    function wp_register_admin_scripts() {
+        // Admin JavaScript
+        wp_register_script( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/javascripts/admin.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
+    }
+    
+    /**
      * Register scripts used by this plugin for enqueuing elsewhere
      * 
      * @uses wp_register_script()
      */
     function wp_register_scripts() {
         // Admin JavaScript
-        wp_register_script( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/js/admin.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
+        wp_register_script( "{$this->namespace}-public", FLUID_VIDEO_EMBEDS_URLPATH . "/javascripts/public.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
     }
     
     /**
@@ -715,7 +749,7 @@ class FluidVideoEmbed{
      */
     function wp_register_styles() {
         // Admin Stylesheet
-        wp_register_style( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/css/admin.css", array(), FLUID_VIDEO_EMBEDS_VERSION, 'screen' );
+        wp_register_style( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/stylesheets/admin.css", array(), FLUID_VIDEO_EMBEDS_VERSION, 'screen' );
     }
 	
 	/***********************************************************************

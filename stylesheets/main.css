@@ -4,6 +4,7 @@
 	position: relative;
 	overflow: hidden;
 	height: 0;
+	background-color: #000000;
 	padding-bottom: 56.25%; /* This is default, but will be overriden */
 	margin: 0.5em 0; /* A bit of margin at the bottom */
 }
