@@ -18,3 +18,9 @@
 	width: 100%;
 	height: 100%;
 }
+
+/* Images For the Image-based (click to play) embeds */
+.fve-video-wrapper.fve-image-embed.fve-thumbnail-image img {
+	position: absolute;
+	top: 0;
+}
