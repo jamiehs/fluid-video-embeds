@@ -20,7 +20,7 @@ class FluidVideoEmbed{
         $this->cache_duration = self::$cache_duration;
         
         // A few constants...
-        define( 'FVE_VERSION', '1.0.2' );
+        define( 'FVE_VERSION', '1.0.3' );
         // The directory the plugin resides in
         if( !defined( 'FVE_DIRNAME' ) ) define( 'FVE_DIRNAME', dirname( __FILE__ ) );
         

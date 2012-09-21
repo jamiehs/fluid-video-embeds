@@ -55,6 +55,9 @@ should only have a minimal impact.
 3. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
+= 1.0.3 =
+Fixing an error (Warning/Notice) that was being thrown if the YouTube API did not return an aspect ratio property.
+
 = 1.0.2 =
 Adding a feed detection function that reverts to the default functionality for oEmbeds if the post is being viewed in a feed.
 
