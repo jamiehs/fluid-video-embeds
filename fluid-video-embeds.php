@@ -338,7 +338,10 @@ class FluidVideoEmbed{
                         $video_meta['thumbnail'] = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
                         $video_meta['full_image'] = 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
                         $video_meta['created_at'] = strtotime( $response_json->entry->published->{'$t'} );
-                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+						$video_meta['aspect'] = 'standard';
+						if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
+	                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+						}
                         $video_meta['duration'] = $response_json->entry->{'media$group'}->{'yt$duration'}->{'seconds'};
                         
                         if( isset( $response_json->entry->author ) ) {
