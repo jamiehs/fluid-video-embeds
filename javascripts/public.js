@@ -12,8 +12,12 @@
 				var fullImage = wrapper.attr('data-full-image');
 				var iframeURL = wrapper.attr('data-iframe-url');
 				
-				// Replace the image with an iFrame
-				image.replaceWith( window.FluidVideoEmedsiFrameBeforeSrc + iframeURL + window.FluidVideoEmedsiFrameAfterSrc );
+				if( /Android|webOS|CriOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+					document.location.href = iframeURL;
+				}else{
+					// Replace the image with an iFrame
+					image.replaceWith( window.FluidVideoEmedsiFrameBeforeSrc + iframeURL + window.FluidVideoEmedsiFrameAfterSrc );
+				}
 			});
 		}
 		
