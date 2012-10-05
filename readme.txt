@@ -19,6 +19,9 @@ See a live demo here: [Fluid Video Embeds Demo](http://jamie3d.com/fluid-video-e
 
 **Usage:** Install the plugin, activate it, then your YouTube and Vimeo embeds should start to ignore the setting in `Settings > Media > Maximum embed size`
 
+You can also use the `[fve]` shortcode like this: `[fve]http://www.youtube.com/watch?v=oHg5SJYRHA0[/fve]` or if you want to use the 
+Fluid Video Embeds method in a php template file in your theme, you can use the do_shortcode method like this: `<?php echo do_shortcode('[fve]http://www.youtube.com/watch?v=oHg5SJYRHA0[/fve]'); ?>`
+
 = How It Works =
 The Fluid Video Embeds plugin aims to cleanly display YouTube and Vimeo videos while allowing them to be fluid(elastic/felxible) as well. The technique
 for doing this is not very new (and is outlined in the credits links below), however I've added a bit of "sugar" to the mix. Since Vimeo and YouTube have robust, 
@@ -55,6 +58,9 @@ should only have a minimal impact.
 3. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
+= 1.1.0 =
+Adding a [fve] shortcode for use in your theme like this: `<?php echo do_shortcode('[fve]http://www.youtube.com/watch?v=oHg5SJYRHA0[/fve]'); ?>`
+
 = 1.0.3 =
 Fixing an error (Warning/Notice) that was being thrown if the YouTube API did not return an aspect ratio property.
 
@@ -68,6 +74,9 @@ Added `wmode=transparent&` to the YouTube embed URL. This prevents YouTube video
 Initial release
 
 == Upgrade Notice ==
+= 1.1.0 =
+Adding a shortcode option for use in template files
+
 = 1.0.1 =
 Added `wmode=transparent&` to the YouTube embed URL
 

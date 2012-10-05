@@ -4,7 +4,7 @@ Plugin Name: Fluid Video Embeds
 Plugin URI: http://wordpress.org/extend/plugins/fluid-video-embeds/
 Description: Makes your YouTube and Vimeo auto-embeds fluid/full width.
 Author: jamie3d
-Version: 1.0.3
+Version: 1.1.0
 Author URI: http://jamie3d.com
 */
 
@@ -20,7 +20,7 @@ class FluidVideoEmbed{
         $this->cache_duration = self::$cache_duration;
         
         // A few constants...
-        define( 'FVE_VERSION', '1.0.3' );
+        define( 'FVE_VERSION', '1.1.0' );
         // The directory the plugin resides in
         if( !defined( 'FVE_DIRNAME' ) ) define( 'FVE_DIRNAME', dirname( __FILE__ ) );
         
@@ -33,33 +33,30 @@ class FluidVideoEmbed{
 
         // Filter the oEmbed response
         add_filter('embed_oembed_html', array( &$this, 'filter_video_embed' ), 16, 3);
+        
         // Register all JavaScript files used by this plugin
         add_action( 'init', array( &$this, 'wp_register_scripts' ), 1 );
         add_action( 'wp_print_scripts', array( &$this, 'wp_print_scripts' ) );
         add_action('wp_head', array( &$this, 'add_head_css' ) );
+        
+        // Add the fve shortcode
+        add_shortcode( 'fve', array( &$this, 'shortcode' ) );
     }
     
     /**
-     * Filter the Video Embeds
+     * Creates the fulid video embed from a URL
      * 
-     * This filters Wordpress' built-in embeds and catches the URL if
-     * it's one of the whitelisted providers. I'm only supporting YouTube and
-     * Vimeo for now, but if demand is high, I might add more.
-	 * 
-	 * @uses $this->is_feed()
-	 * 
-	 * @return string filtered or unfiltered $html
+     * @param string $url the video URL
+     * 
+     * @return string the fluid video embed
      */
-    function filter_video_embed($html, $url, $attr) {
-    	/**
-		 * If the content is being accessed via a RSS feed,
-		 * let's just enforce the default behavior.
-		 */
-    	if( $this->is_feed() ) return $html;
-		
+    function fluid_video_embed_from_url( $url ) {
+        // Get the provider slug and see if it's supported...
         $this->provider_slug = $this->get_video_provider_slug_from_url( $url );
         
+        // If it is, then this is the point of processing.
         if( in_array( $this->provider_slug, self::$available_providers ) ){
+            // Get the meta for the video (this is cached)
             $this->meta = $this->get_video_meta_from_url( $url );
             
             switch ( $this->provider_slug ) {
@@ -81,6 +78,33 @@ class FluidVideoEmbed{
                     return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe src="http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
                 break;
             }
+        }
+
+        return false;
+    }
+    
+    /**
+     * Filter the Video Embeds
+     * 
+     * This filters Wordpress' built-in embeds and catches the URL if
+     * it's one of the whitelisted providers. I'm only supporting YouTube and
+     * Vimeo for now, but if demand is high, I might add more.
+	 * 
+	 * @uses $this->is_feed()
+	 * 
+	 * @return string filtered or unfiltered $html
+     */
+    function filter_video_embed($html, $url, $attr) {
+    	/**
+		 * If the content is being accessed via a RSS feed,
+		 * let's just enforce the default behavior.
+		 */
+    	if( $this->is_feed() ) return $html;
+		
+        // If the embed is supported it returns HTML, if not, false.
+        $supported_embed = $this->fluid_video_embed_from_url( $url );
+        if( $supported_embed ) {
+            return $supported_embed;
         }
         
         // Return the default embed.
@@ -388,6 +412,23 @@ class FluidVideoEmbed{
 		}
 		return false;
 	}
+    
+    /**
+     * [fve] shortcode for embedding in a template
+     */
+    function shortcode( $atts, $content = '' ) {
+        extract( shortcode_atts( array(
+            'nothing' => 'here yet',
+        ), $atts ) );
+        
+        // If the embed is supported it returns HTML, if not, false.
+        $supported_embed = $this->fluid_video_embed_from_url( $content );
+        if( $supported_embed ) {
+            return $supported_embed;
+        }
+        
+        return "";
+    }
     
     /**
      * Runs a simple MySQL query that clears any option from the wp_options table
