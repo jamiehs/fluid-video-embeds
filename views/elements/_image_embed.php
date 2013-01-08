@@ -1,3 +1,3 @@
 <div class="fve-video-wrapper fve-image-embed fve-thumbnail-image <?php echo $this->provider_slug; ?>" data-full-image="<?php echo $this->meta['full_image']; ?>" data-iframe-url="<?php echo $image_embed_iframe_url; ?>" style="padding-bottom:<?php echo $wrapper_padding; ?>;">
-	<img<?php echo $image_width.$image_height; ?> src="<?php echo $this->meta['thumbnail']; ?>" style="top:<?php echo $thumbnail_top_offset; ?>;left:<?php echo $thumbnail_left_offset; ?>;" />
+	<img<?php echo $image_width.$image_height; ?> src="<?php echo $this->meta['full_image']; ?>" style="top:<?php echo $thumbnail_top_offset; ?>;left:<?php echo $thumbnail_left_offset; ?>;" />
 </div>
