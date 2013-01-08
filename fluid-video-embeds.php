@@ -25,6 +25,99 @@ class FluidVideoEmbed{
 		$this->namespace = self::$namespace;
         $this->friendly_name = self::$friendly_name;
         $this->cache_duration = self::$cache_duration;
+<<<<<<< HEAD
+        
+        // A few constants...
+        define( 'FVE_VERSION', '1.1.0' );
+        // The directory the plugin resides in
+        if( !defined( 'FVE_DIRNAME' ) ) define( 'FVE_DIRNAME', dirname( __FILE__ ) );
+        
+        // The URL path of this plugin
+        if( !defined( 'FVE_URLPATH' ) ) define( 'FVE_URLPATH', ( is_ssl() ? str_replace( "http://", "https://", WP_PLUGIN_URL ) : WP_PLUGIN_URL ) . "/" . basename( FVE_DIRNAME ) );
+        
+        // The URL path of this plugin
+        if( !defined( 'FVE_CACHE_PREFIX' ) ) define( 'FVE_CACHE_PREFIX', 'fve-cache-' );
+
+
+        // Filter the oEmbed response
+        add_filter('embed_oembed_html', array( &$this, 'filter_video_embed' ), 16, 3);
+        
+        // Register all JavaScript files used by this plugin
+        add_action( 'init', array( &$this, 'wp_register_scripts' ), 1 );
+        add_action( 'wp_print_scripts', array( &$this, 'wp_print_scripts' ) );
+        add_action('wp_head', array( &$this, 'add_head_css' ) );
+        
+        // Add the fve shortcode
+        add_shortcode( 'fve', array( &$this, 'shortcode' ) );
+    }
+    
+    /**
+     * Creates the fulid video embed from a URL
+     * 
+     * @param string $url the video URL
+     * 
+     * @return string the fluid video embed
+     */
+    function fluid_video_embed_from_url( $url ) {
+        // Get the provider slug and see if it's supported...
+        $this->provider_slug = $this->get_video_provider_slug_from_url( $url );
+        
+        // If it is, then this is the point of processing.
+        if( in_array( $this->provider_slug, self::$available_providers ) ){
+            // Get the meta for the video (this is cached)
+            $this->meta = $this->get_video_meta_from_url( $url );
+            
+            switch ( $this->provider_slug ) {
+                case 'youtube':
+                    /**
+                     * YouTube doesn't seem to provide width and or height for
+                     * their videos. They only provide a 'widescreen' property if the
+                     * video is widescreen-ish. So this is likely the best we can do for now.
+                     */
+                    $padding = '75%';
+                    if( $this->meta['aspect'] == 'widescreen' )
+                        $padding = '56.25%';
+                    
+                    return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe class="youtube-player" type="text/html" width="100%" height="100%" src="http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0" frameborder="0"></iframe></div>';
+                break;
+                case 'vimeo':
+                    $padding = ( $this->meta['aspect'] * 100 ) . '%';
+                    
+                    return '<div class="fve-video-wrapper ' . $this->provider_slug . '" style="padding-bottom:' . $padding . ';"><iframe src="http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe></div>';
+                break;
+            }
+        }
+
+        return false;
+    }
+    
+    /**
+     * Filter the Video Embeds
+     * 
+     * This filters Wordpress' built-in embeds and catches the URL if
+     * it's one of the whitelisted providers. I'm only supporting YouTube and
+     * Vimeo for now, but if demand is high, I might add more.
+	 * 
+	 * @uses $this->is_feed()
+	 * 
+	 * @return string filtered or unfiltered $html
+     */
+    function filter_video_embed($html, $url, $attr) {
+    	/**
+		 * If the content is being accessed via a RSS feed,
+		 * let's just enforce the default behavior.
+		 */
+    	if( $this->is_feed() ) return $html;
+		
+        // If the embed is supported it returns HTML, if not, false.
+        $supported_embed = $this->fluid_video_embed_from_url( $url );
+        if( $supported_embed ) {
+            return $supported_embed;
+        }
+        
+        // Return the default embed.
+        return $html;
+=======
 		$this->try_to_get_youtube_max_image = true;
 		
         // Name of the option_value to store plugin options in
@@ -91,6 +184,7 @@ class FluidVideoEmbed{
         echo '<!-- Start Fluid Video Embeds Script Tag -->' . "\n";
         include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_javascript_variables.php' );
         echo '<!-- End Fluid Video Embeds Script Tag -->' . "\n";
+>>>>>>> 7defe6abb48efe8194c11a3e55c374a8fa06f57a
     }
 	
     /**
@@ -561,7 +655,11 @@ class FluidVideoEmbed{
                         $video_meta['thumbnail'] = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
                         $video_meta['full_image'] = $this->get_youtube_max_thumbnail( $video_id );
                         $video_meta['created_at'] = strtotime( $response_json->entry->published->{'$t'} );
+<<<<<<< HEAD
+						$video_meta['aspect'] = 'standard';
+=======
 						$video_meta['aspect'] = 'widescreen';
+>>>>>>> 7defe6abb48efe8194c11a3e55c374a8fa06f57a
 						if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
 	                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
 						}
@@ -691,12 +789,34 @@ class FluidVideoEmbed{
 	}
 	
     /**
+<<<<<<< HEAD
+     * [fve] shortcode for embedding in a template
+     */
+    function shortcode( $atts, $content = '' ) {
+        extract( shortcode_atts( array(
+            'nothing' => 'here yet',
+        ), $atts ) );
+        
+        // If the embed is supported it returns HTML, if not, false.
+        $supported_embed = $this->fluid_video_embed_from_url( $content );
+        if( $supported_embed ) {
+            return $supported_embed;
+        }
+        
+        return "";
+    }
+    
+    /**
+     * Runs a simple MySQL query that clears any option from the wp_options table
+     * that contains '_fve-cache-'
+=======
      * Route the user based off of environment conditions
      * 
      * This function will handling routing of form submissions to the appropriate
      * form processor.
      * 
      * @uses RelatedServiceComments::_admin_options_update()
+>>>>>>> 7defe6abb48efe8194c11a3e55c374a8fa06f57a
      */
     function route() {
         $uri = $_SERVER['REQUEST_URI'];
