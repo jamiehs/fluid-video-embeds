@@ -14,7 +14,7 @@
 				
 				if( /Android|webOS|CriOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
 					document.location.href = iframeURL;
-				}else{
+				}else if( iframeURL ){
 					// Replace the image with an iFrame
 					image.replaceWith( window.FluidVideoEmedsiFrameBeforeSrc + iframeURL + window.FluidVideoEmedsiFrameAfterSrc );
 				}

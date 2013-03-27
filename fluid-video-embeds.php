@@ -19,26 +19,26 @@ class FluidVideoEmbed{
     
     static $cache_duration = 2880;
     static $namespace = 'fluid-video-embeds';
-	static $friendly_name = 'Fluid Video Embeds';
+    static $friendly_name = 'Fluid Video Embeds';
     
     function __construct() {
-		$this->namespace = self::$namespace;
+        $this->namespace = self::$namespace;
         $this->friendly_name = self::$friendly_name;
         $this->cache_duration = self::$cache_duration;
-		$this->try_to_get_youtube_max_image = true;
-		
+        $this->try_to_get_youtube_max_image = true;
+        
         // Name of the option_value to store plugin options in
         $this->option_name = '_' . $this->namespace . '--options';
-		
-		// Set and Translate defaults
-	    $this->defaults = array(
-			'fve_style' => 'iframe',
-		);
-		
-		$this->iframe_before_src = '<iframe src="';
-		$this->iframe_after_src = '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
-		
-		$this->_add_hooks();
+        
+        // Set and Translate defaults
+        $this->defaults = array(
+            'fve_style' => 'iframe',
+        );
+        
+        $this->iframe_before_src = '<iframe src="';
+        $this->iframe_after_src = '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+        
+        $this->_add_hooks();
     }
     
     /**
@@ -49,38 +49,38 @@ class FluidVideoEmbed{
     private function _add_hooks() {
         // Filter the oEmbed response
         add_filter('embed_oembed_html', array( &$this, 'filter_video_embed' ), 16, 3);
-		
+        
         // Add the Fluid Video Embeds Stylesheets
         add_action('wp_head', array( &$this, 'add_head_css' ) );
-		
+        
         // Add the Fluid Video Embeds JavaScript
         add_action('wp_footer', array( &$this, 'add_footer_js' ) );
-		
-		// Options page for configuration
-		add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
-		
-		// Output the styles for the admin area.
-		add_action( 'admin_menu', array( &$this, 'admin_print_styles' ) );
-		
-		// Register admin JavaScripts for this plugin
-		add_action( 'admin_menu', array( &$this, 'wp_register_admin_scripts' ), 1 );
-		
-		// Route requests for form processing
-		add_action( 'init', array( &$this, 'route' ) );
-		
-		// Enqueue the public scripts
-		add_action( 'init', array( &$this, 'enqueue_public_scripts' ) );
-		
-		// Add a settings link next to the "Deactivate" link on the plugin listing page.
-		add_filter( 'plugin_action_links', array( &$this, 'plugin_action_links' ), 10, 2 );
-		
-		// Register all JavaScripts for this plugin
-		add_action( 'init', array( &$this, 'wp_register_scripts' ), 1 );
-		
-		// Register all Stylesheets for this plugin
-		add_action( 'init', array( &$this, 'wp_register_styles' ), 1 );
-	}
-	
+        
+        // Options page for configuration
+        add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
+        
+        // Output the styles for the admin area.
+        add_action( 'admin_menu', array( &$this, 'admin_print_styles' ) );
+        
+        // Register admin JavaScripts for this plugin
+        add_action( 'admin_menu', array( &$this, 'wp_register_admin_scripts' ), 1 );
+        
+        // Route requests for form processing
+        add_action( 'init', array( &$this, 'route' ) );
+        
+        // Enqueue the public scripts
+        add_action( 'init', array( &$this, 'enqueue_public_scripts' ) );
+        
+        // Add a settings link next to the "Deactivate" link on the plugin listing page.
+        add_filter( 'plugin_action_links', array( &$this, 'plugin_action_links' ), 10, 2 );
+        
+        // Register all JavaScripts for this plugin
+        add_action( 'init', array( &$this, 'wp_register_scripts' ), 1 );
+        
+        // Register all Stylesheets for this plugin
+        add_action( 'init', array( &$this, 'wp_register_styles' ), 1 );
+    }
+    
     /**
      * Adds the Style tag to the head of the page.
      * 
@@ -92,7 +92,7 @@ class FluidVideoEmbed{
         include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_javascript_variables.php' );
         echo '<!-- End Fluid Video Embeds Script Tag -->' . "\n";
     }
-	
+    
     /**
      * Adds the Style tag to the head of the page.
      * 
@@ -129,13 +129,13 @@ class FluidVideoEmbed{
             
             // Update the options value with the data submitted
             update_option( $this->option_name, $data );
-			
+            
             // Redirect back to the options page with the message flag to show the saved message
             wp_safe_redirect( $_REQUEST['_wp_http_referer'] );
             exit;
         }
     }
-	
+    
     /**
      * Sanitize data
      * 
@@ -164,7 +164,7 @@ class FluidVideoEmbed{
         
         return $str;
     }
-	
+    
     /**
      * Define the admin menu options for this plugin
      * 
@@ -177,7 +177,7 @@ class FluidVideoEmbed{
         // Add print scripts and styles action based off the option page hook
         add_action( 'admin_print_scripts-' . $page_hook, array( &$this, 'admin_print_scripts' ) );
     }
-	
+    
     /**
      * The admin section options page rendering method
      * 
@@ -192,7 +192,7 @@ class FluidVideoEmbed{
         $namespace = $this->namespace;
         $page_title = $this->friendly_name . ' ' . __( 'Settings', $namespace );
         $fve_style = $this->get_option( 'fve_style' );
-		
+        
         include( FLUID_VIDEO_EMBEDS_DIRNAME . "/views/options.php" );
     }
 
@@ -256,7 +256,7 @@ class FluidVideoEmbed{
     function cache_clear( $name = "" ) {
         delete_transient( FLUID_VIDEO_EMBEDS_CACHE_PREFIX . $name );
     }
-	
+    
     /**
      * Runs a simple MySQL query that clears any option from the wp_options table
      * that contains '_fve-cache-'
@@ -267,7 +267,7 @@ class FluidVideoEmbed{
         // Delete all the fve transients that contain '_fve-cache-'
         $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->options WHERE option_name LIKE %s AND option_name LIKE %s", '%_fve-cache-%', '%_transient_%' ) );
     }
-	
+    
     /**
      * Enqueue public scripts used by this plugin for enqueuing elsewhere
      * 
@@ -284,21 +284,21 @@ class FluidVideoEmbed{
      * This filters Wordpress' built-in embeds and catches the URL if
      * it's one of the whitelisted providers. I'm only supporting YouTube and
      * Vimeo for now, but if demand is high, I might add more.
-	 * 
-	 * @uses $this->is_feed()
-	 * 
-	 * @return string filtered or unfiltered $html
+     * 
+     * @uses $this->is_feed()
+     * 
+     * @return string filtered or unfiltered $html
      */
     function filter_video_embed($html, $url, $attr) {
-    	/**
-		 * If the content is being accessed via a RSS feed,
-		 * let's just enforce the default behavior.
-		 */
-    	if( $this->is_feed() ) return $html;
-		$fve_style = $this->get_option( 'fve_style' );
-		$image_width = ' width="100%"';
-		$image_height = '';
-		
+        /**
+         * If the content is being accessed via a RSS feed,
+         * let's just enforce the default behavior.
+         */
+        if( $this->is_feed() ) return $html;
+        $fve_style = $this->get_option( 'fve_style' );
+        $image_width = ' width="100%"';
+        $image_height = '';
+        
         $this->provider_slug = $this->get_video_provider_slug_from_url( $url );
         
         if( in_array( $this->provider_slug, self::$available_providers ) ){
@@ -317,38 +317,47 @@ class FluidVideoEmbed{
                     if( $this->meta['aspect'] == 'widescreen' ) $wrapper_padding = '56.25%';
                     $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
                     $image_embed_iframe_url = $iframe_url . '&autoplay=1';
+                    $hyperlink_embed_url = 'http://youtu.be/' . $this->meta['id'];
                 break;
                 case 'vimeo':
                     $wrapper_padding = ( $this->meta['aspect'] * 100 ) . '%';
-					$thumbnail_top_offset = '-' . ( abs( 0.75 - $this->meta['aspect'] ) / ( $this->meta['aspect'] * 2 ) ) * 100 . '%'; // Vimeo small and medium thumbs are always 4:3
-					$thumbnail_left_offset = 0;
-										
-					if( $this->meta['aspect'] >= 0.75 ){
-						$aspect_inverse = 1 / $this->meta['aspect'];
-						$thumbnail_left_offset = '-' . ( abs( 1.333 - $aspect_inverse ) / ( $aspect_inverse * 2 ) ) * 100 . '%';
-						$thumbnail_top_offset = 0;
-						$image_height = ' height="100%"';
-						$image_width = '';
-					}
-					
+                    $thumbnail_top_offset = '-' . ( abs( 0.75 - $this->meta['aspect'] ) / ( $this->meta['aspect'] * 2 ) ) * 100 . '%'; // Vimeo small and medium thumbs are always 4:3
+                    $thumbnail_left_offset = 0;
+                                        
+                    if( $this->meta['aspect'] >= 0.75 ){
+                        $aspect_inverse = 1 / $this->meta['aspect'];
+                        $thumbnail_left_offset = '-' . ( abs( 1.333 - $aspect_inverse ) / ( $aspect_inverse * 2 ) ) * 100 . '%';
+                        $thumbnail_top_offset = 0;
+                        $image_height = ' height="100%"';
+                        $image_width = '';
+                    }
+                    
                     $iframe_url = 'http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0';
                     $image_embed_iframe_url = $iframe_url . '&autoplay=1';
+                    $hyperlink_embed_url = 'http://vimeo.com/' . $this->meta['id'];
                 break;
             }
-			switch( $fve_style ){
-				case 'iframe':
-		            ob_start( );
-		            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
-		            $output = ob_get_contents( );
-		            ob_end_clean( );
-				break;
-				case 'image':
-		            ob_start( );
-		            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_image_embed.php' );
-		            $output = ob_get_contents( );
-		            ob_end_clean( );				break;
-			}
-			return $output;
+            switch( $fve_style ){
+                case 'iframe':
+                    ob_start( );
+                    include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
+                    $output = ob_get_contents( );
+                    ob_end_clean( );
+                break;
+                case 'image':
+                    ob_start( );
+                    include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_image_embed.php' );
+                    $output = ob_get_contents( );
+                    ob_end_clean( );
+                break;
+                case 'hyperlink':
+                    ob_start( );
+                    include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_hyperlink_embed.php' );
+                    $output = ob_get_contents( );
+                    ob_end_clean( );
+                break;
+            }
+            return $output;
         }
 
         // Return the default embed.
@@ -365,10 +374,10 @@ class FluidVideoEmbed{
      * @return mixed Returns the option value or false(boolean) if the option is not found
      */
     function get_option( $option_name, $reload = false ) {
-    	// If reload is true, kill the existing options value so it gets fetched fresh.
-    	if( $reload )
-			$this->options = null;
-		
+        // If reload is true, kill the existing options value so it gets fetched fresh.
+        if( $reload )
+            $this->options = null;
+        
         // Load option values if they haven't been loaded already
         if( !isset( $this->options ) || empty( $this->options ) ) {
             $this->options = get_option( $this->option_name, $this->defaults );
@@ -381,7 +390,7 @@ class FluidVideoEmbed{
         }
         return false;
     }
-	    	
+            
     /**
      * Get Video Provider Slug From URl
      * 
@@ -561,10 +570,10 @@ class FluidVideoEmbed{
                         $video_meta['thumbnail'] = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
                         $video_meta['full_image'] = $this->get_youtube_max_thumbnail( $video_id );
                         $video_meta['created_at'] = strtotime( $response_json->entry->published->{'$t'} );
-						$video_meta['aspect'] = 'widescreen';
-						if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
-	                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
-						}
+                        $video_meta['aspect'] = 'widescreen';
+                        if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
+                            $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+                        }
                         $video_meta['duration'] = $response_json->entry->{'media$group'}->{'yt$duration'}->{'seconds'};
                         
                         if( isset( $response_json->entry->author ) ) {
@@ -594,49 +603,49 @@ class FluidVideoEmbed{
         return $video_meta;
     }
 
-	/**
-	 * Get Maximum YouTube Thumbnail
-	 * 
-	 * YouTube maked it both easy and difficult to
-	 * get the highest resolution image for their videos.
-	 * Here we try to get the max resolution thumbnail and
-	 * if it returns a 404, then we simply serve the
-	 * medium quality version.
-	 * 
-	 * @param string $video_id
-	 * 
-	 * @return string The largest image we can get for this video
-	 */
-	function get_youtube_max_thumbnail( $video_id ) {
-		if( $this->try_to_get_youtube_max_image ) {
-			// The URL of the maximum resolution YouTube thumbnail
-			$max_res_url = 'http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg';
-			$cache_key = $max_res_url . 'max_res_test';
-			$cache_duration = 60 * 60 * 24 * 2; // Two days
-			
-	        // Attempt to read the cache for the response.
-	        $response_code = $this->cache_read( $cache_key );
-			
-			if( !$response_code ) {
-				// Ask YouTube for the maximum resolution image.
-	            $response = wp_remote_get( $max_res_url, array( 'sslverify' => false ) );
-				
-				// If the response is good, cache the response code.
-	            if( !is_wp_error( $response ) ) {
-	            	if( isset( $response['response']['code'] ) ) {
-		            	$this->cache_write( $cache_key, (string) $response['response']['code'], $cache_duration );
-	            	}
-	            }
-			}
-			
-        	// If the response code is not 404
-        	if( $response_code != '404' ) {
-				return $max_res_url;
-        	}
-		}
-		
-		return 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
-	}
+    /**
+     * Get Maximum YouTube Thumbnail
+     * 
+     * YouTube maked it both easy and difficult to
+     * get the highest resolution image for their videos.
+     * Here we try to get the max resolution thumbnail and
+     * if it returns a 404, then we simply serve the
+     * medium quality version.
+     * 
+     * @param string $video_id
+     * 
+     * @return string The largest image we can get for this video
+     */
+    function get_youtube_max_thumbnail( $video_id ) {
+        if( $this->try_to_get_youtube_max_image ) {
+            // The URL of the maximum resolution YouTube thumbnail
+            $max_res_url = 'http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg';
+            $cache_key = $max_res_url . 'max_res_test';
+            $cache_duration = 60 * 60 * 24 * 2; // Two days
+            
+            // Attempt to read the cache for the response.
+            $response_code = $this->cache_read( $cache_key );
+            
+            if( !$response_code ) {
+                // Ask YouTube for the maximum resolution image.
+                $response = wp_remote_get( $max_res_url, array( 'sslverify' => false ) );
+                
+                // If the response is good, cache the response code.
+                if( !is_wp_error( $response ) ) {
+                    if( isset( $response['response']['code'] ) ) {
+                        $this->cache_write( $cache_key, (string) $response['response']['code'], $cache_duration );
+                    }
+                }
+            }
+            
+            // If the response code is not 404
+            if( $response_code != '404' ) {
+                return $max_res_url;
+            }
+        }
+        
+        return 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
+    }
 
     /**
      * Initialization function to hook into the WordPress init action
@@ -651,45 +660,45 @@ class FluidVideoEmbed{
         if( !isset( $fve ) ) $fve = new FluidVideoEmbed();
     }
 
-	/**
-	 * Is Feed?
-	 * 
-	 * An extension of the is_feed() function.
-	 * We first check WWordPress' built in method and if it passes,
-	 * then we say yes this is a feed. If it fails, we try to detect FeedBurner
-	 * 
-	 * @return boolean
-	 */
-	function is_feed(){
-		if( is_feed() ){
-			return true;
-		}elseif( preg_match( '/feedburner/', strtolower( $_SERVER['HTTP_USER_AGENT'] ) ) ){
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Hook into plugin_action_links filter
-	 * 
-	 * Adds a "Settings" link next to the "Deactivate" link in the plugin listing page
-	 * when the plugin is active.
-	 * 
-	 * @param object $links An array of the links to show, this will be the modified variable
-	 * @param string $file The name of the file being processed in the filter
-	 */
-	function plugin_action_links( $links, $file ) {
-		if( $file == plugin_basename( FLUID_VIDEO_EMBEDS_DIRNAME . '/' . basename( __FILE__ ) ) ) {
+    /**
+     * Is Feed?
+     * 
+     * An extension of the is_feed() function.
+     * We first check WWordPress' built in method and if it passes,
+     * then we say yes this is a feed. If it fails, we try to detect FeedBurner
+     * 
+     * @return boolean
+     */
+    function is_feed(){
+        if( is_feed() ){
+            return true;
+        }elseif( preg_match( '/feedburner/', strtolower( $_SERVER['HTTP_USER_AGENT'] ) ) ){
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Hook into plugin_action_links filter
+     * 
+     * Adds a "Settings" link next to the "Deactivate" link in the plugin listing page
+     * when the plugin is active.
+     * 
+     * @param object $links An array of the links to show, this will be the modified variable
+     * @param string $file The name of the file being processed in the filter
+     */
+    function plugin_action_links( $links, $file ) {
+        if( $file == plugin_basename( FLUID_VIDEO_EMBEDS_DIRNAME . '/' . basename( __FILE__ ) ) ) {
             $old_links = $links;
             $new_links = array(
                 "settings" => '<a href="options-general.php?page=' . $this->namespace . '">' . __( 'Settings' ) . '</a>'
             );
             $links = array_merge( $new_links, $old_links );
-		}
-		
-		return $links;
-	}
-	
+        }
+        
+        return $links;
+    }
+    
     /**
      * Route the user based off of environment conditions
      * 
@@ -751,29 +760,29 @@ class FluidVideoEmbed{
         // Admin Stylesheet
         wp_register_style( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/stylesheets/admin.css", array(), FLUID_VIDEO_EMBEDS_VERSION, 'screen' );
     }
-	
-	/***********************************************************************
-	******************** Activation and De-Activation **********************
-	***********************************************************************/
-	/**
-	 * Static WordPress activation function.
-	 * (Do not depend on this being fired when upgrading)
-	 */
+    
+    /***********************************************************************
+    ******************** Activation and De-Activation **********************
+    ***********************************************************************/
+    /**
+     * Static WordPress activation function.
+     * (Do not depend on this being fired when upgrading)
+     */
     static function activate() {
         self::clear_caches();
     }
 
-	/**
-	 * Static WordPress de-activation function.
-	 * (Do not depend on this being fired when upgrading)
-	 */
+    /**
+     * Static WordPress de-activation function.
+     * (Do not depend on this being fired when upgrading)
+     */
     static function deactivate() {
         self::clear_caches();
     }
 }
 
 if( !isset( $fve ) ) {
-	FluidVideoEmbed::instance();
+    FluidVideoEmbed::instance();
 }
 
 register_activation_hook( __FILE__, array('FluidVideoEmbed', 'activate') );
