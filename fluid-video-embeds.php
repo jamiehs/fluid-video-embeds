@@ -4,7 +4,7 @@ Plugin Name: Fluid Video Embeds
 Plugin URI: http://wordpress.org/extend/plugins/fluid-video-embeds/
 Description: Makes your YouTube and Vimeo auto-embeds fluid/full width.
 Author: jamie3d
-Version: 1.1.0
+Version: 1.1.1
 Author URI: http://jamie3d.com
 */
 
@@ -363,8 +363,8 @@ class FluidVideoEmbed{
                         $video_meta['full_image'] = 'http://img.youtube.com/vi/' . $video_id . '/0.jpg';
                         $video_meta['created_at'] = strtotime( $response_json->entry->published->{'$t'} );
 						$video_meta['aspect'] = 'standard';
-						if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
-	                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+						if( isset( $response_json->entry->{'yt$hd'} ) ) {
+	                        $video_meta['aspect'] = ( isset( $response_json->entry->{'yt$hd'} ) ) ? 'widescreen' : 'standard';
 						}
                         $video_meta['duration'] = $response_json->entry->{'media$group'}->{'yt$duration'}->{'seconds'};
                         
@@ -453,5 +453,3 @@ $fve = new FluidVideoEmbed();
 
 register_activation_hook( __FILE__, array('FluidVideoEmbed', 'activate') );
 register_deactivation_hook( __FILE__, array('FluidVideoEmbed', 'deactivate') );
-
-?>
