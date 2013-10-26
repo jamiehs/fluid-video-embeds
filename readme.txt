@@ -3,7 +3,7 @@ Contributors: jamie3d
 Donate Link: http://goo.gl/JTYF2
 Tags: video, youtube, vimeo, fluid, flexible, elastic, responsive, 100%, full width, embed, oEmbed
 Requires at least: 3.3
-Tested up to: 3.6
+Tested up to: 3.7
 Stable tag: trunk
 License: GPLv3
 
