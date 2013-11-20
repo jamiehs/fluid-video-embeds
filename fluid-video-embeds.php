@@ -17,8 +17,6 @@ class FluidVideoEmbed{
     static $cache_duration = 2880;
     
     function __construct() {
-        $this->cache_duration = self::$cache_duration;
-        
         // A few constants...
         define( 'FVE_VERSION', '1.1.0' );
         // The directory the plugin resides in
@@ -253,7 +251,7 @@ class FluidVideoEmbed{
                         $thumbnail_url = $video->thumbnail_small;
                         
                         // Write the cache
-                        $this->cache_write( $cache_key, $thumbnail_url, $this->cache_duration );
+                        $this->cache_write( $cache_key, $thumbnail_url, self::$cache_duration );
                     }
                 }
             break;
@@ -346,7 +344,7 @@ class FluidVideoEmbed{
             
             // Only update the cache if this is not an error
             if( !is_wp_error( $response ) ) {
-                $this->cache_write( $cache_key, $response, $this->cache_duration );
+                $this->cache_write( $cache_key, $response, self::$cache_duration );
             }
         }
         
