@@ -1,7 +1,7 @@
 <?php
 /**
  * Constants used by this plugin
-
+ * 
  * @author jamie3d
  * @version 1.0.0
  * @since 1.0.0

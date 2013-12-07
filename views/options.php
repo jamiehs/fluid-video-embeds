@@ -5,16 +5,12 @@
         <?php wp_nonce_field( $namespace . "-update-options" ); ?>
         <ul>
             <li>
-                <label for="fve_style"><?php _e( 'Embed Style', $namespace ); ?></label>
-                <select id="fve_style" name="data[fve_style]">
-                    <option<?php echo ( $fve_style == 'iframe' ) ? ' selected="selected"' : '' ; ?> value="iframe"><?php _e( 'iFrame Embed', $namespace ); ?></option>
-                    <option<?php echo ( $fve_style == 'image' ) ? ' selected="selected"' : '' ; ?> value="image"><?php _e( 'Image (click to play)', $namespace ); ?></option>
-                    <option<?php echo ( $fve_style == 'hyperlink' ) ? ' selected="selected"' : '' ; ?> value="hyperlink"><?php _e( 'Hyperlink', $namespace ); ?></option>
-                </select>
+                <label for="fve_max_width"><?php _e( 'Max width', $namespace ); ?></label>
+                <input id="fve_max_width" name="data[fve_max_width]" size="3" value="<?php echo $this->fve_max_width; ?>">
+                <p class="description"><?php echo sprintf( __( 'Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: %1$s500px%2$s or %1$s22em%2$s)', $namespace ), '<code>', '</code>' ) ?></p>
             </li>
             <li>
                 <input type="submit" name="submit" class="button-primary" value="<?php _e( "Save Changes", $namespace ) ?>" />
-                <?php _e( "(Saves the above settings)", $namespace ) ?>
             </li>
         </ul>
     </form>

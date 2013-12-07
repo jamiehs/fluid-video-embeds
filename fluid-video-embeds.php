@@ -4,7 +4,7 @@ Plugin Name: Fluid Video Embeds
 Plugin URI: http://wordpress.org/extend/plugins/fluid-video-embeds/
 Description: Makes your YouTube and Vimeo auto-embeds fluid/full width.
 Author: jamie3d
-Version: 1.1.0
+Version: 1.1.1
 Author URI: http://jamie3d.com
 */
 
@@ -33,7 +33,13 @@ class FluidVideoEmbed{
         // Set and Translate defaults
         $this->defaults = array(
             'fve_style' => 'iframe',
+            'fve_max_width' => '0'
         );
+
+        $this->fve_max_width = (string) $this->get_option( 'fve_max_width' );
+        if ( empty( $this->fve_max_width ) ) {
+            $this->fve_max_width = '0';
+        }
         
         $this->iframe_before_src = '<iframe src="';
         $this->iframe_after_src = '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
@@ -53,9 +59,6 @@ class FluidVideoEmbed{
         // Add the Fluid Video Embeds Stylesheets
         add_action('wp_head', array( &$this, 'add_head_css' ) );
         
-        // Add the Fluid Video Embeds JavaScript
-        add_action('wp_footer', array( &$this, 'add_footer_js' ) );
-        
         // Options page for configuration
         add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
         
@@ -72,7 +75,7 @@ class FluidVideoEmbed{
         add_action( 'init', array( &$this, 'enqueue_public_scripts' ) );
         
         // Add a settings link next to the "Deactivate" link on the plugin listing page.
-        add_filter( 'plugin_action_links', array( &$this, 'plugin_action_links' ), 10, 2 );
+        add_filter( 'plugin_row_meta', array( &$this, 'plugin_action_links' ), 10, 2 );
         
         // Register all JavaScripts for this plugin
         add_action( 'init', array( &$this, 'wp_register_scripts' ), 1 );
@@ -87,22 +90,13 @@ class FluidVideoEmbed{
      * I'm trying it this way because it might be easier than loading an 
      * additional file for a small amount of CSS. We'll see...
      */
-    function add_footer_js() {
-        echo '<!-- Start Fluid Video Embeds Script Tag -->' . "\n";
-        include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_javascript_variables.php' );
-        echo '<!-- End Fluid Video Embeds Script Tag -->' . "\n";
-    }
-    
-    /**
-     * Adds the Style tag to the head of the page.
-     * 
-     * I'm trying it this way because it might be easier than loading an 
-     * additional file for a small amount of CSS. We'll see...
-     */
     function add_head_css() {
         echo '<!-- Start Fluid Video Embeds Style Tag -->' . "\n";
         echo '<style type="text/css">' . "\n";
         include( FLUID_VIDEO_EMBEDS_DIRNAME . '/stylesheets/main.css' );
+        if( $this->fve_max_width != '0' ) {
+            echo ".fve-max-width-wrapper{ max-width: {$this->fve_max_width}; }";
+        }
         echo '</style>' . "\n";
         echo '<!-- End Fluid Video Embeds Style Tag -->' . "\n";
     }
@@ -125,6 +119,11 @@ class FluidVideoEmbed{
              */
             foreach( $_POST['data'] as $key => $val ) {
                 $data[$key] = $this->_sanitize( $val );
+            }
+
+            // Add a dimension if the user forgot
+            if( !empty( $data['fve_max_width'] ) && !preg_match( '/px|em/i', $data['fve_max_width'] ) ) {
+                $data['fve_max_width'] .= 'px';
             }
             
             // Update the options value with the data submitted
@@ -337,26 +336,12 @@ class FluidVideoEmbed{
                     $hyperlink_embed_url = 'http://vimeo.com/' . $this->meta['id'];
                 break;
             }
-            switch( $fve_style ){
-                case 'iframe':
-                    ob_start( );
-                    include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
-                    $output = ob_get_contents( );
-                    ob_end_clean( );
-                break;
-                case 'image':
-                    ob_start( );
-                    include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_image_embed.php' );
-                    $output = ob_get_contents( );
-                    ob_end_clean( );
-                break;
-                case 'hyperlink':
-                    ob_start( );
-                    include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_hyperlink_embed.php' );
-                    $output = ob_get_contents( );
-                    ob_end_clean( );
-                break;
-            }
+
+            ob_start( );
+            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
+            $output = ob_get_contents( );
+            ob_end_clean( );
+
             return $output;
         }
 
@@ -693,7 +678,7 @@ class FluidVideoEmbed{
             $new_links = array(
                 "settings" => '<a href="options-general.php?page=' . $this->namespace . '">' . __( 'Settings' ) . '</a>'
             );
-            $links = array_merge( $new_links, $old_links );
+            $links = array_merge( $old_links, $new_links );
         }
         
         return $links;
@@ -738,7 +723,8 @@ class FluidVideoEmbed{
      */
     function wp_register_admin_scripts() {
         // Admin JavaScript
-        wp_register_script( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/javascripts/admin.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
+        // We may need this later on
+        //wp_register_script( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/javascripts/admin.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
     }
     
     /**
@@ -748,7 +734,8 @@ class FluidVideoEmbed{
      */
     function wp_register_scripts() {
         // Admin JavaScript
-        wp_register_script( "{$this->namespace}-public", FLUID_VIDEO_EMBEDS_URLPATH . "/javascripts/public.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
+        // We may need this later on
+        //wp_register_script( "{$this->namespace}-public", FLUID_VIDEO_EMBEDS_URLPATH . "/javascripts/public.js", array( 'jquery' ), FLUID_VIDEO_EMBEDS_VERSION, true );
     }
     
     /**

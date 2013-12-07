@@ -1,27 +1,21 @@
 /* Thanks to Web Designer Wall for writing about this technique: http://webdesignerwall.com/tutorials/css-elastic-videos */
 /* And to A List Apart: http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/ */
 .fve-video-wrapper {
-	position: relative;
-	overflow: hidden;
-	height: 0;
-	background-color: #000000;
-	padding-bottom: 56.25%; /* This is default, but will be overriden */
-	margin: 0.5em 0; /* A bit of margin at the bottom */
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    background-color: #000000;
+    padding-bottom: 56.25%; /* This is default, but will be overriden */
+    margin: 0.5em 0; /* A bit of margin at the bottom */
 }
 
 .fve-video-wrapper iframe,  
 .fve-video-wrapper object,  
 .fve-video-wrapper embed {
-	position: absolute;
-	display: block;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-}
-
-/* Images For the Image-based (click to play) embeds */
-.fve-video-wrapper.fve-image-embed.fve-thumbnail-image img {
-	position: absolute;
-	top: 0;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
