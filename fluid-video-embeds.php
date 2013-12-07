@@ -17,15 +17,11 @@ class FluidVideoEmbed{
         'vimeo'
     );
     
-    static $cache_duration = 2880;
-    static $namespace = 'fluid-video-embeds';
-    static $friendly_name = 'Fluid Video Embeds';
-    
     function __construct() {
-        $this->namespace = self::$namespace;
-        $this->friendly_name = self::$friendly_name;
-        $this->cache_duration = self::$cache_duration;
-        $this->try_to_get_youtube_max_image = true;
+        $this->namespace = 'fluid-video-embeds';
+        $this->friendly_name = 'Fluid Video Embeds';
+        $this->cache_duration = 2880;
+        $this->try_to_get_youtube_max_image = false;
         
         // Name of the option_value to store plugin options in
         $this->option_name = '_' . $this->namespace . '--options';
@@ -82,6 +78,9 @@ class FluidVideoEmbed{
         
         // Register all Stylesheets for this plugin
         add_action( 'init', array( &$this, 'wp_register_styles' ), 1 );
+
+        // Add the fve shortcode
+        add_shortcode( 'fve', array( &$this, 'shortcode' ) );
     }
     
     /**
@@ -255,6 +254,23 @@ class FluidVideoEmbed{
     function cache_clear( $name = "" ) {
         delete_transient( FLUID_VIDEO_EMBEDS_CACHE_PREFIX . $name );
     }
+
+    /**
+     * [fve] shortcode for embedding in a template
+     */
+    function shortcode( $atts, $content = '' ) {
+        extract( shortcode_atts( array(
+            'nothing' => 'here yet',
+        ), $atts ) );
+        
+        // If the embed is supported it returns HTML, if not, false.
+        $supported_embed = $this->fluid_video_embed_from_url( $content );
+        if( $supported_embed ) {
+            return $supported_embed;
+        }
+        
+        return "";
+    }
     
     /**
      * Runs a simple MySQL query that clears any option from the wp_options table
@@ -276,7 +292,57 @@ class FluidVideoEmbed{
         // Admin JavaScript
         wp_enqueue_script( "{$this->namespace}-public" );
     }
-    
+
+    /**
+     * Creates the fulid video embed from a URL
+     * 
+     * @param string $url the video URL
+     * 
+     * @return string the fluid video embed
+     */
+    function fluid_video_embed_from_url( $url ) {
+        $iframe_url = '';
+
+        // Get the provider slug and see if it's supported...
+        $this->provider_slug = $this->get_video_provider_slug_from_url( $url );
+        
+        // If it is, then this is the point of processing.
+        if( in_array( $this->provider_slug, self::$available_providers ) ){
+            // Get the meta for the video (this is cached)
+            $this->meta = $this->get_video_meta_from_url( $url );
+            
+            switch ( $this->provider_slug ) {
+                case 'youtube':
+                    /**
+                     * YouTube doesn't seem to provide width and or height for
+                     * their videos. They only provide a 'widescreen' property if the
+                     * video is widescreen-ish. So this is likely the best we can do for now.
+                     */
+                    $wrapper_padding = '75%';
+                    if( $this->meta['aspect'] == 'widescreen' ) {
+                        $wrapper_padding = '56.25%';
+                    }
+                    
+                    $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
+                break;
+                case 'vimeo':
+                    $wrapper_padding = ( $this->meta['aspect'] * 100 ) . '%';
+                    
+                    $iframe_url = 'http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0';
+                break;
+            }
+
+            ob_start( );
+            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
+            $output = ob_get_contents( );
+            ob_end_clean( );
+
+            return $output;
+        }
+
+        return false;
+    }
+
     /**
      * Filter the Video Embeds
      * 
@@ -294,57 +360,13 @@ class FluidVideoEmbed{
          * let's just enforce the default behavior.
          */
         if( $this->is_feed() ) return $html;
-        $fve_style = $this->get_option( 'fve_style' );
-        $image_width = ' width="100%"';
-        $image_height = '';
         
-        $this->provider_slug = $this->get_video_provider_slug_from_url( $url );
-        
-        if( in_array( $this->provider_slug, self::$available_providers ) ){
-            $this->meta = $this->get_video_meta_from_url( $url );
-            
-            switch ( $this->provider_slug ) {
-                case 'youtube':
-                    /**
-                     * YouTube doesn't seem to provide width and or height for
-                     * their videos. They only provide a 'widescreen' property if the
-                     * video is widescreen-ish. So this is likely the best we can do for now.
-                     */
-                    $wrapper_padding = '75%';
-                    $thumbnail_top_offset = '0px';
-                    $thumbnail_left_offset = '0px';
-                    if( $this->meta['aspect'] == 'widescreen' ) $wrapper_padding = '56.25%';
-                    $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
-                    $image_embed_iframe_url = $iframe_url . '&autoplay=1';
-                    $hyperlink_embed_url = 'http://youtu.be/' . $this->meta['id'];
-                break;
-                case 'vimeo':
-                    $wrapper_padding = ( $this->meta['aspect'] * 100 ) . '%';
-                    $thumbnail_top_offset = '-' . ( abs( 0.75 - $this->meta['aspect'] ) / ( $this->meta['aspect'] * 2 ) ) * 100 . '%'; // Vimeo small and medium thumbs are always 4:3
-                    $thumbnail_left_offset = 0;
-                                        
-                    if( $this->meta['aspect'] >= 0.75 ){
-                        $aspect_inverse = 1 / $this->meta['aspect'];
-                        $thumbnail_left_offset = '-' . ( abs( 1.333 - $aspect_inverse ) / ( $aspect_inverse * 2 ) ) * 100 . '%';
-                        $thumbnail_top_offset = 0;
-                        $image_height = ' height="100%"';
-                        $image_width = '';
-                    }
-                    
-                    $iframe_url = 'http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0';
-                    $image_embed_iframe_url = $iframe_url . '&autoplay=1';
-                    $hyperlink_embed_url = 'http://vimeo.com/' . $this->meta['id'];
-                break;
-            }
-
-            ob_start( );
-            include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
-            $output = ob_get_contents( );
-            ob_end_clean( );
-
-            return $output;
+        // If the embed is supported it returns HTML, if not, false.
+        $supported_embed = $this->fluid_video_embed_from_url( $url );
+        if( $supported_embed ) {
+            return $supported_embed;
         }
-
+        
         // Return the default embed.
         return $html;
     }
