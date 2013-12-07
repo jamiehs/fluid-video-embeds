@@ -29,12 +29,32 @@ class FluidVideoEmbed{
         // Set and Translate defaults
         $this->defaults = array(
             'fve_style' => 'iframe',
-            'fve_max_width' => '0'
+            'fve_max_width' => '0',
+            'fve_alignment' => 'left',
+            'fve_responsive_hyperlink' => false,
+            'fve_responsive_hyperlink_breakpoint' => '480px',
         );
 
+        // Autoload the Max Width option
         $this->fve_max_width = (string) $this->get_option( 'fve_max_width' );
         if ( empty( $this->fve_max_width ) ) {
-            $this->fve_max_width = '0';
+            $this->fve_max_width = $this->defaults['fve_max_width'];
+        }
+
+        // Autoload the Alignment option
+        $this->fve_alignment = (string) $this->get_option( 'fve_alignment' );
+        if ( empty( $this->fve_alignment ) ) {
+            $this->fve_alignment = $this->defaults['fve_alignment'];
+        }
+
+        // Autoload the Responsive Hyperlink options
+        $this->fve_responsive_hyperlink = (bool) $this->get_option( 'fve_responsive_hyperlink' );
+        if ( empty( $this->fve_responsive_hyperlink ) ) {
+            $this->fve_responsive_hyperlink = $this->defaults['fve_responsive_hyperlink'];
+        }
+        $this->fve_responsive_hyperlink_breakpoint = (string) $this->get_option( 'fve_responsive_hyperlink_breakpoint' );
+        if ( empty( $this->fve_responsive_hyperlink_breakpoint ) ) {
+            $this->fve_responsive_hyperlink_breakpoint = $this->defaults['fve_responsive_hyperlink_breakpoint'];
         }
         
         $this->iframe_before_src = '<iframe src="';
@@ -93,8 +113,30 @@ class FluidVideoEmbed{
         echo '<!-- Start Fluid Video Embeds Style Tag -->' . "\n";
         echo '<style type="text/css">' . "\n";
         include( FLUID_VIDEO_EMBEDS_DIRNAME . '/stylesheets/main.css' );
+
+        // Additional styles for maximum width
         if( $this->fve_max_width != '0' ) {
-            echo ".fve-max-width-wrapper{ max-width: {$this->fve_max_width}; }";
+            echo ".fve-max-width-wrapper{ max-width: {$this->fve_max_width}; }" . "\n";
+            // Additional styles for alignment
+            switch( $this->fve_alignment ) {
+                case 'left':
+                    echo "margin-left: 0; margin-right: auto;" . "\n";
+                break;
+                case 'center':
+                    echo "margin-left: auto; margin-right: auto;" . "\n";
+                break;
+                case 'right':
+                    echo "margin-left: auto; margin-right: 0;" . "\n";
+                break;
+            }
+        }
+
+        // Additional styles for responsive hyperlink
+        if( $this->fve_responsive_hyperlink ) {
+            echo '@media (max-width:' . $this->fve_responsive_hyperlink_breakpoint . '){' . "\n";
+            echo '    .fve-video-wrapper iframe, .fve-video-wrapper object, .fve-video-wrapper embed { display: none; }' . "\n";
+            echo '    .fve-video-wrapper a.hyperlink-image { display: block; }' . "\n";
+            echo '}' . "\n";
         }
         echo '</style>' . "\n";
         echo '<!-- End Fluid Video Embeds Style Tag -->' . "\n";
@@ -121,8 +163,13 @@ class FluidVideoEmbed{
             }
 
             // Add a dimension if the user forgot
-            if( !empty( $data['fve_max_width'] ) && !preg_match( '/px|em/i', $data['fve_max_width'] ) ) {
+            if( !empty( $data['fve_max_width'] ) && !preg_match( '/px|em|%/i', $data['fve_max_width'] ) ) {
                 $data['fve_max_width'] .= 'px';
+            }
+            
+            // Add a dimension if the user forgot
+            if( !empty( $data['fve_responsive_hyperlink_breakpoint'] ) && !preg_match( '/px|em|%/i', $data['fve_responsive_hyperlink_breakpoint'] ) ) {
+                $data['fve_responsive_hyperlink_breakpoint'] .= 'px';
             }
             
             // Update the options value with the data submitted
@@ -324,11 +371,15 @@ class FluidVideoEmbed{
                     }
                     
                     $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
+                    $permalink = 'http://www.youtube.com/watch?v=' . $this->meta['id'];
+                    $thumbnail = $this->meta['full_image'];
                 break;
                 case 'vimeo':
                     $wrapper_padding = ( $this->meta['aspect'] * 100 ) . '%';
                     
                     $iframe_url = 'http://player.vimeo.com/video/' . $this->meta['id'] . '?portrait=0&byline=0&title=0';
+                    $permalink = 'http://vimeo.com/' . $this->meta['id'];
+                    $thumbnail = $this->meta['full_image'];
                 break;
             }
 
