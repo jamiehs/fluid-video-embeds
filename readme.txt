@@ -32,7 +32,7 @@ The Fluid Video Embeds plugin aims to cleanly display YouTube and Vimeo videos w
 for doing this is not very new (and is outlined in the credits links below), however I've added a bit of "sugar" to the mix. Since Vimeo and YouTube have robust, 
 open APIs, I'm requesting information about each video server side (which is then cached) and used to determine the optimal aspect ratio for the video container.
 
-Note (September 2013): YouTube's API is not always returning the property I'm looking for. For newer videos, this may not work correctly in all cases. As a workaround, the default for YouTube has been changed to 'widescreen'.
+Note (September 2013): YouTube's API is not always returning the property I'm looking for. As a workaround, the default for YouTube has been changed to 'widescreen'.
 
 = Credits =
 *   This plugin uses some code from functions in [SlideDeck 2 Lite](http://wordpress.org/extend/plugins/slidedeck2/) for handling the fetching, caching, and organizing of video meta from the aforementioned providers. Please check out SlideDeck if you need your videos in a sweet jQuery Slider.
@@ -67,6 +67,8 @@ should only have a minimal impact.
 == Changelog ==
 = 1.2.0 =
 * Added a max-width option to the new settings screen.
+* Now has an alignment option if the max-width option is used.
+* New hyperlink mode for mobile devices with a customizable media query.
 
 = 1.1.1 =
 Changed the way that YouTube widescreen videos are determined. It looks like they changed an API without letting us know.
@@ -86,7 +88,11 @@ Added `wmode=transparent&` to the YouTube embed URL. This prevents YouTube video
 = 1.0 =
 Initial release
 
+
 == Upgrade Notice ==
+= 1.2.0 =
+* Added a max-width option to the new settings screen.
+
 = 1.1.0 =
 Adding a shortcode option for use in template files
 
