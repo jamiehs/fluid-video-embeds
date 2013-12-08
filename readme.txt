@@ -60,9 +60,10 @@ should only have a minimal impact.
 
 == Screenshots ==
 
-1. Videos with varying aspect ratios in various sized containers are not a problem.
-2. Because the fve plugin uses the iFrame method for embedding YouTube and Vimeo (along with the 100% width technique) the videos are naturally responsive for mobile devices.
-3. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
+1. Settings page.
+2. Videos with varying aspect ratios in various sized containers are not a problem.
+3. Because the fve plugin uses the iFrame method for embedding YouTube and Vimeo (along with the 100% width technique) the videos are naturally responsive for mobile devices.
+4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
 = 1.2.0 =
