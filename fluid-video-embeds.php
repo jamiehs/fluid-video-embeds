@@ -32,7 +32,7 @@ class FluidVideoEmbed{
             'fve_max_width' => '0',
             'fve_alignment' => 'left',
             'fve_responsive_hyperlink' => false,
-            'fve_responsive_hyperlink_breakpoint' => '480px',
+            'fve_responsive_hyperlink_mq' => '@media screen and (max-device-width: 768px)',
         );
 
         // Autoload the Max Width option
@@ -52,9 +52,9 @@ class FluidVideoEmbed{
         if ( empty( $this->fve_responsive_hyperlink ) ) {
             $this->fve_responsive_hyperlink = $this->defaults['fve_responsive_hyperlink'];
         }
-        $this->fve_responsive_hyperlink_breakpoint = (string) $this->get_option( 'fve_responsive_hyperlink_breakpoint' );
-        if ( empty( $this->fve_responsive_hyperlink_breakpoint ) ) {
-            $this->fve_responsive_hyperlink_breakpoint = $this->defaults['fve_responsive_hyperlink_breakpoint'];
+        $this->fve_responsive_hyperlink_mq = (string) $this->get_option( 'fve_responsive_hyperlink_mq' );
+        if ( empty( $this->fve_responsive_hyperlink_mq ) ) {
+            $this->fve_responsive_hyperlink_mq = $this->defaults['fve_responsive_hyperlink_mq'];
         }
         
         $this->iframe_before_src = '<iframe src="';
@@ -116,24 +116,29 @@ class FluidVideoEmbed{
 
         // Additional styles for maximum width
         if( $this->fve_max_width != '0' ) {
-            echo ".fve-max-width-wrapper{ max-width: {$this->fve_max_width}; }" . "\n";
+            echo '.fve-max-width-wrapper{' . "\n";
+            echo '    max-width: ' . $this->fve_max_width . ';' . "\n";
             // Additional styles for alignment
             switch( $this->fve_alignment ) {
                 case 'left':
-                    echo "margin-left: 0; margin-right: auto;" . "\n";
+                    echo '    margin-left: 0;' . "\n";
+                    echo '    margin-right: auto;' . "\n";
                 break;
                 case 'center':
-                    echo "margin-left: auto; margin-right: auto;" . "\n";
+                    echo '    margin-left: auto;' . "\n";
+                    echo '    margin-right: auto;' . "\n";
                 break;
                 case 'right':
-                    echo "margin-left: auto; margin-right: 0;" . "\n";
+                    echo '    margin-left: auto;' . "\n";
+                    echo '    margin-right: 0;' . "\n";
                 break;
             }
+            echo "}" . "\n";
         }
 
         // Additional styles for responsive hyperlink
         if( $this->fve_responsive_hyperlink ) {
-            echo '@media (max-width:' . $this->fve_responsive_hyperlink_breakpoint . '){' . "\n";
+            echo $this->fve_responsive_hyperlink_mq . ' {' . "\n";
             echo '    .fve-video-wrapper iframe, .fve-video-wrapper object, .fve-video-wrapper embed { display: none; }' . "\n";
             echo '    .fve-video-wrapper a.hyperlink-image { display: block; }' . "\n";
             echo '}' . "\n";
@@ -165,11 +170,6 @@ class FluidVideoEmbed{
             // Add a dimension if the user forgot
             if( !empty( $data['fve_max_width'] ) && !preg_match( '/px|em|%/i', $data['fve_max_width'] ) ) {
                 $data['fve_max_width'] .= 'px';
-            }
-            
-            // Add a dimension if the user forgot
-            if( !empty( $data['fve_responsive_hyperlink_breakpoint'] ) && !preg_match( '/px|em|%/i', $data['fve_responsive_hyperlink_breakpoint'] ) ) {
-                $data['fve_responsive_hyperlink_breakpoint'] .= 'px';
             }
             
             // Update the options value with the data submitted

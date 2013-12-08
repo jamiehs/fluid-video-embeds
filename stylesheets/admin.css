@@ -8,3 +8,9 @@
 .wrap.fluid-video-embeds .fve_alignment label {
     margin-right: 2em;
 }
+.settings-group {
+    margin-bottom: 2em;
+}
+#fve_breakpoint_group p.description {
+    padding: 1em 0;
+}
