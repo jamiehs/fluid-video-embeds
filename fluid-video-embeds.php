@@ -60,6 +60,8 @@ class FluidVideoEmbed{
         $this->iframe_before_src = '<iframe src="';
         $this->iframe_after_src = '" width="100%" height="100%" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
         
+        load_plugin_textdomain($this->namespace, false, dirname(plugin_basename(__FILE__)) . '/languages/');
+        
         $this->_add_hooks();
     }
     
@@ -749,7 +751,7 @@ class FluidVideoEmbed{
         if( $file == plugin_basename( FLUID_VIDEO_EMBEDS_DIRNAME . '/' . basename( __FILE__ ) ) ) {
             $old_links = $links;
             $new_links = array(
-                "settings" => '<a href="options-general.php?page=' . $this->namespace . '">' . __( 'Settings' ) . '</a>'
+                "settings" => '<a href="options-general.php?page=' . $this->namespace . '">' . __( 'Settings', $this->namespace ) . '</a>'
             );
             $links = array_merge( $old_links, $new_links );
         }
