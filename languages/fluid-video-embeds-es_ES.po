@@ -1,65 +1,99 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Fluid Video Embeds 1.2.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/fluid-video-embeds\n"
-"POT-Creation-Date: 2014-02-04 17:19:22+00:00\n"
-"PO-Revision-Date: Tue Feb 04 2014 21:43:56 GMT-0800 (Pacific Standard Time)\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: Fluid Video Embeds\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed, 05 Feb 2014 18:46:40 +0000\n"
+"PO-Revision-Date: Fri, 14 Feb 2014 04:28:40 +0000\n"
+"Last-Translator: Jamie Hamel-Smith\n"
+"Language-Team: jamiehs\n"
 "Language: Spanish\n"
-"Plural-Forms: nplurals=2; plural=n == 1 ? 0 : 1\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Loco https://localise.biz\n"
 "X-Loco-Source-Locale: en_US\n"
-"X-Loco-Parser: loco_parse_po\n"
 "X-Loco-Target-Locale: es_ES\n"
-"X-Generator: Loco - https://localise.biz/"
+"X-Loco-Tagged: \n"
+"X-Poedit-SourceCharset: UTF-8"
 
-#: views/options.php:11
+#: Center
+msgid "Center"
+msgstr "Centro"
+
+#: Left
+msgid "Left"
+msgstr "Izquierda"
+
+#: Right
+msgid "Right"
+msgstr "Derecha"
+
+#: Settings
+msgid "Settings"
+msgstr "Configuración"
+
+#: container-alignment
+msgid "Container Alignment"
+msgstr "Alineación del Contenedor"
+
+#: erase-this-field-and-save-the-settings-to-reset
+msgid "Erase this field and save the settings to reset."
+msgstr "Elimine este campo y guarde la configuración para reiniciar."
+
+#: fluid-video-embeds
+msgid "Fluid Video Embeds"
+msgstr "Incrustaciones Fluidas de Video"
+
+#: http-jamie3d-com
+msgid "http://jamie3d.com"
+msgstr "http://jamie3d.com"
+
+#: http-wordpress-org-extend-plugins-fluid-video-embe
+msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+msgstr "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+
+#: if-the-width-is-smaller-how-should-the-video-be-al
+msgid "If the width is smaller, how should the video be aligned?"
+msgstr "Si el ancho es menor, ¿cómo se debe alinear el video?"
+
+#: jamie3d
+msgid "jamie3d"
+msgstr "jamie3d"
+
+#: makes-your-youtube-and-vimeo-auto-embeds-fluid-ful
+msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
+msgstr "Realiza sus incrustaciones automáticas  de YouTube y Vimeo ancho/completo."
+
+#: max-width
+msgid "Max width:"
+msgstr "Ancho máximo:"
+
+#: maximum-width
+msgid "Maximum Width"
+msgstr "Ancho Máximo"
+
+#: media-query
+msgid "Media Query:"
+msgstr "Consulta Medios:"
+
+#: responsive-hyperlink-options
+msgid "Responsive Hyperlink Options"
+msgstr "Opciones hipervínculo respuesta"
+
+#: save-changes
+msgid "Save Changes"
+msgstr "Guardar cambios"
+
+#: set-this-to-x0x-for-no-max-width-otherwise-use-pix
 msgid ""
 "Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: "
 "%1$s500px%2$s or %1$s22em%2$s)"
 msgstr ""
+"Ponga esto a %1$s0%2$s para no limite de ancho máximo. De lo contrario, "
+"utilice píxeles o ems. (Por ejemplo: %1$s500px%2$s o %1$s22em%2$s)"
 
-#: views/options.php:14
-msgid "Container Alignment"
-msgstr ""
-
-#: views/options.php:16
-msgid "Left"
-msgstr ""
-
-#: views/options.php:18
-msgid "Center"
-msgstr ""
-
-#: views/options.php:20
-msgid "Right"
-msgstr ""
-
-#: views/options.php:21
-msgid "If the width is smaller, how should the video be aligned?"
-msgstr ""
-
-#: views/options.php:24
-msgid "Responsive Hyperlink Options"
-msgstr ""
-
-#: views/options.php:26
-msgid "Use Responsive Hyperlink?"
-msgstr ""
-
-#: views/options.php:29
-msgid "Media Query:"
-msgstr ""
-
-#: views/options.php:30
-msgid "Erase this field and save the settings to reset."
-msgstr ""
-
-#: views/options.php:32
+#: the-responsive-hyperlink-option-will-swap-the-vide
 msgid ""
 "The Responsive Hyperlink option will swap the video iFrame with a simple "
 "hyperlink to the video URL (if the screen is smaller than the specified "
@@ -68,39 +102,14 @@ msgid ""
 "enable that better experience. When this option is enabled, the video will show "
 "up as a hyperlinked image instead of an actual video player."
 msgstr ""
+"La opción Hipervínculo Respuesta intercambiará el vídeo iFrame con un "
+"hipervínculo simple a la URL del vídeo (si la pantalla es más pequeña que "
+"el punto de interrupción especificado). En los dispositivos móviles y de mano,"
+" a menudo es una mejor experiencia ver el vídeo en la aplicación o el "
+"reproductor multimedia nativo. Esta opción trata de habilitar esa mejor "
+"experiencia. Cuando esta opción está habilitada, el vídeo se mostrará como "
+"una imagen con hipervínculo en lugar de un reproductor de vídeo real."
 
-#: views/options.php:36
-msgid "Save Changes"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Fluid Video Embeds"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "jamie3d"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://jamie3d.com"
-msgstr ""
-
-#: fluid-video-embeds.php:238 fluid-video-embeds.php:752
-msgid "Settings"
-msgstr ""
-
-#: views/options.php:8
-msgid "Maximum Width"
-msgstr ""
-
-#: views/options.php:9
-msgid "Max width:"
-msgstr ""
+#: use-responsive-hyperlink
+msgid "Use Responsive Hyperlink?"
+msgstr "¿Usar hipervínculo de respusta?"

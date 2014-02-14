@@ -13,6 +13,8 @@ Make your "auto embedded" YouTube and Vimeo videos full width (100%) while maint
 
 This plugin modifies the built-in Vimeo and YouTube oEmbed auto-embeds so they are full-width, and flexible while maintaining their original aspect ratio.
 
+As of February 13th 2014 it contains both English and Spanish translations.
+
 See a live demo here: [Fluid Video Embeds Demo](http://jamie3d.com/fluid-video-embeds-demo/)
 
 **Requirements:** PHP5+, WordPress 3.3+
@@ -66,6 +68,10 @@ should only have a minimal impact.
 4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
+= 1.2.1 =
+* Added full i18n (internationalization) support.
+* Added Spanish translation thanks to Andrew at http://www.webhostinghub.com/
+
 = 1.2.0 =
 * Added a max-width option to the new settings screen.
 * Now has an alignment option if the max-width option is used.
@@ -91,6 +97,9 @@ Initial release
 
 
 == Upgrade Notice ==
+= 1.2.1 =
+* Adds Spanish translation & i18n support.
+
 = 1.2.0 =
 * Added a max-width option to the new settings screen.
 

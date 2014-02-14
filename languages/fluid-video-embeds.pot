@@ -1,101 +1,105 @@
-# Copyright (C) 2014 Fluid Video Embeds
-# This file is distributed under the same license as the Fluid Video Embeds package.
+# Loco Gettext template
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Fluid Video Embeds 1.2.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/fluid-video-embeds\n"
-"POT-Creation-Date: 2014-02-04 17:19:22+00:00\n"
+"Project-Id-Version: Fluid Video Embeds\n"
+"Report-Msgid-Bugs-To: Jamie Hamel-Smith\n"
+"POT-Creation-Date: Fri, 14 Feb 2014 04:25:18 +0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Poedit-SourceCharset: UTF-8"
 
-#: fluid-video-embeds.php:238 fluid-video-embeds.php:752
+#: Center
+msgid "Center"
+msgstr ""
+
+#: Left
+msgid "Left"
+msgstr ""
+
+#: Right
+msgid "Right"
+msgstr ""
+
+#: Settings
 msgid "Settings"
 msgstr ""
 
-#: views/options.php:8
-msgid "Maximum Width"
+#: container-alignment
+msgid "Container Alignment"
 msgstr ""
 
-#: views/options.php:9
+#: erase-this-field-and-save-the-settings-to-reset
+msgid "Erase this field and save the settings to reset."
+msgstr ""
+
+#: fluid-video-embeds
+msgid "Fluid Video Embeds"
+msgstr ""
+
+#: http-jamie3d-com
+msgid "http://jamie3d.com"
+msgstr ""
+
+#: http-wordpress-org-extend-plugins-fluid-video-embe
+msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+msgstr ""
+
+#: if-the-width-is-smaller-how-should-the-video-be-al
+msgid "If the width is smaller, how should the video be aligned?"
+msgstr ""
+
+#: jamie3d
+msgid "jamie3d"
+msgstr ""
+
+#: makes-your-youtube-and-vimeo-auto-embeds-fluid-ful
+msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
+msgstr ""
+
+#: max-width
 msgid "Max width:"
 msgstr ""
 
-#: views/options.php:11
+#: maximum-width
+msgid "Maximum Width"
+msgstr ""
+
+#: media-query
+msgid "Media Query:"
+msgstr ""
+
+#: responsive-hyperlink-options
+msgid "Responsive Hyperlink Options"
+msgstr ""
+
+#: save-changes
+msgid "Save Changes"
+msgstr ""
+
+#: set-this-to-x0x-for-no-max-width-otherwise-use-pix
 msgid ""
 "Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: "
 "%1$s500px%2$s or %1$s22em%2$s)"
 msgstr ""
 
-#: views/options.php:14
-msgid "Container Alignment"
-msgstr ""
-
-#: views/options.php:16
-msgid "Left"
-msgstr ""
-
-#: views/options.php:18
-msgid "Center"
-msgstr ""
-
-#: views/options.php:20
-msgid "Right"
-msgstr ""
-
-#: views/options.php:21
-msgid "If the width is smaller, how should the video be aligned?"
-msgstr ""
-
-#: views/options.php:24
-msgid "Responsive Hyperlink Options"
-msgstr ""
-
-#: views/options.php:26
-msgid "Use Responsive Hyperlink?"
-msgstr ""
-
-#: views/options.php:29
-msgid "Media Query:"
-msgstr ""
-
-#: views/options.php:30
-msgid "Erase this field and save the settings to reset."
-msgstr ""
-
-#: views/options.php:32
+#: the-responsive-hyperlink-option-will-swap-the-vide
 msgid ""
 "The Responsive Hyperlink option will swap the video iFrame with a simple "
 "hyperlink to the video URL (if the screen is smaller than the specified "
-"breakpoint). On mobile and handheld devices, it is often a better experience "
-"to watch the video in the native application or media player. This option "
-"tries to enable that better experience. When this option is enabled, the "
-"video will show up as a hyperlinked image instead of an actual video player."
+"breakpoint). On mobile and handheld devices, it is often a better experience to "
+"watch the video in the native application or media player. This option tries to "
+"enable that better experience. When this option is enabled, the video will show "
+"up as a hyperlinked image instead of an actual video player."
 msgstr ""
 
-#: views/options.php:36
-msgid "Save Changes"
-msgstr ""
-
-#. Plugin Name of the plugin/theme
-msgid "Fluid Video Embeds"
-msgstr ""
-
-#. Plugin URI of the plugin/theme
-msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
-msgstr ""
-
-#. Description of the plugin/theme
-msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "jamie3d"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://jamie3d.com"
+#: use-responsive-hyperlink
+msgid "Use Responsive Hyperlink?"
 msgstr ""
