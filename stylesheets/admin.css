@@ -1,10 +1,10 @@
 /**
  * Admin Control Panel Stylesheets
- * 
- * @version 1.0.0
- * @since 1.0.0
  */
 
+.wrap.fluid-video-embeds {
+	max-width: 70em;
+}
 .wrap.fluid-video-embeds .fve_alignment label {
     margin-right: 2em;
 }

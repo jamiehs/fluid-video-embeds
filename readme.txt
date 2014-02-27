@@ -68,6 +68,10 @@ should only have a minimal impact.
 4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
 
 == Changelog ==
+= 1.2.2 =
+* Added Portuguese translation thanks to Eduardo http://www.linkedin.com/in/eduardotoledano
+* Added a max-width to the settings page.
+
 = 1.2.1 =
 * Added full i18n (internationalization) support.
 * Added Spanish translation thanks to Andrew at http://www.webhostinghub.com/
@@ -97,6 +101,9 @@ Initial release
 
 
 == Upgrade Notice ==
+= 1.2.2 =
+* Adds Portuguese translation.
+
 = 1.2.1 =
 * Adds Spanish translation & i18n support.
 

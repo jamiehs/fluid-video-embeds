@@ -1,0 +1,116 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Fluid Video Embeds\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: Wed, 05 Feb 2014 18:46:40 +0000\n"
+"PO-Revision-Date: Thu, 27 Feb 2014 06:12:10 +0000\n"
+"Last-Translator: Jamie Hamel-Smith\n"
+"Language-Team: jamiehs\n"
+"Language: Portuguese (Brazil)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz\n"
+"X-Loco-Source-Locale: en_US\n"
+"X-Loco-Target-Locale: pt_BR\n"
+"X-Loco-Tagged: \n"
+"X-Poedit-SourceCharset: UTF-8"
+
+#: Center
+msgid "Center"
+msgstr "Centro"
+
+#: Left
+msgid "Left"
+msgstr "Esquerda"
+
+#: Right
+msgid "Right"
+msgstr "Direita"
+
+#: Settings
+msgid "Settings"
+msgstr "Configurações"
+
+#: container-alignment
+msgid "Container Alignment"
+msgstr "Alinhamento dos contâiners"
+
+#: erase-this-field-and-save-the-settings-to-reset
+msgid "Erase this field and save the settings to reset."
+msgstr "Apagar campo e salvar configurações para reiniciar."
+
+#: fluid-video-embeds
+msgid "Fluid Video Embeds"
+msgstr "Fluid Video Embeds"
+
+#: http-jamie3d-com
+msgid "http://jamie3d.com"
+msgstr "http://jamie3d.com"
+
+#: http-wordpress-org-extend-plugins-fluid-video-embe
+msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+msgstr "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+
+#: if-the-width-is-smaller-how-should-the-video-be-al
+msgid "If the width is smaller, how should the video be aligned?"
+msgstr "Se a largura for menor, qual deve ser o alinhamento do vídeo?"
+
+#: jamie3d
+msgid "jamie3d"
+msgstr "jamie3d"
+
+#: makes-your-youtube-and-vimeo-auto-embeds-fluid-ful
+msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
+msgstr ""
+"Estabelece seus auto-embeds do YouTube e Vimeo como fluidos (fluid)/largura "
+"máxima."
+
+#: max-width
+msgid "Max width:"
+msgstr "Largura máx."
+
+#: maximum-width
+msgid "Maximum Width"
+msgstr "Largura máxima"
+
+#: media-query
+msgid "Media Query:"
+msgstr "Media Query:"
+
+#: responsive-hyperlink-options
+msgid "Responsive Hyperlink Options"
+msgstr "Opções de Responsive Hyperlink"
+
+#: save-changes
+msgid "Save Changes"
+msgstr "Salvar alterações"
+
+#: set-this-to-x0x-for-no-max-width-otherwise-use-pix
+msgid ""
+"Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: "
+"%1$s500px%2$s or %1$s22em%2$s)"
+msgstr ""
+"Selecione %1$s0%2$s para largura máxima indefinida. Do contrário, use pixels, "
+"ou ems. (ex: %1$s500px%2$s ou %1$s22em%2$s)"
+
+#: the-responsive-hyperlink-option-will-swap-the-vide
+msgid ""
+"The Responsive Hyperlink option will swap the video iFrame with a simple "
+"hyperlink to the video URL (if the screen is smaller than the specified "
+"breakpoint). On mobile and handheld devices, it is often a better experience to "
+"watch the video in the native application or media player. This option tries to "
+"enable that better experience. When this option is enabled, the video will show "
+"up as a hyperlinked image instead of an actual video player."
+msgstr ""
+"As opções de Responsive Hyperlink irão substituir o iFrame do vídeo com um "
+"simples hyperlink para o vídeo (se a janela for menor que o breakpoint "
+"especificado). Em dispositivos móveis, para uma melhor experiência recomenda-"
+"se assistir ao vídeo no aplicativo nativo ou media player. Quando esta opção "
+"é selecionada, o vídeo aparecerá como uma imagem com hyperlink, em vez de "
+"aparecer como aplicativo."
+
+#: use-responsive-hyperlink
+msgid "Use Responsive Hyperlink?"
+msgstr "Usar Responsive Hyperlink?"

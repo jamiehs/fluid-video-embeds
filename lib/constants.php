@@ -3,12 +3,10 @@
  * Constants used by this plugin
  * 
  * @author jamie3d
- * @version 1.0.0
- * @since 1.0.0
  */
 
 // The current version of this plugin
-if( !defined( 'FLUID_VIDEO_EMBEDS_VERSION' ) ) define( 'FLUID_VIDEO_EMBEDS_VERSION', '1.2.0' );
+if( !defined( 'FLUID_VIDEO_EMBEDS_VERSION' ) ) define( 'FLUID_VIDEO_EMBEDS_VERSION', '1.2.2' );
 
 // The cache prefix
 if( !defined( 'FLUID_VIDEO_EMBEDS_CACHE_PREFIX' ) ) define( 'FLUID_VIDEO_EMBEDS_CACHE_PREFIX', 'fve' );
