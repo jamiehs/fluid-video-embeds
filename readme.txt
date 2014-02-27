@@ -13,7 +13,7 @@ Make your "auto embedded" YouTube and Vimeo videos full width (100%) while maint
 
 This plugin modifies the built-in Vimeo and YouTube oEmbed auto-embeds so they are full-width, and flexible while maintaining their original aspect ratio.
 
-As of February 13th 2014 it contains both English and Spanish translations.
+As of February 26th 2014 it contains English, Portuguese (BR), and Spanish translations.
 
 See a live demo here: [Fluid Video Embeds Demo](http://jamie3d.com/fluid-video-embeds-demo/)
 
