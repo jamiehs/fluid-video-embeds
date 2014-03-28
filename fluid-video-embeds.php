@@ -602,11 +602,15 @@ class FluidVideoEmbed{
         if( !$response ) {
             switch( $service ) {
                 case "youtube":
-                $url = 'http://gdata.youtube.com/feeds/api/videos/' . $video_id . '?v=2&alt=json';
+                    $url = 'https://www.googleapis.com/youtube/v3/videos';
+                    $url.= '?key=' . FLUID_VIDEO_EMBEDS_YOUTUBE_API_KEY;
+                    $url.= '&part=contentDetails,snippet';
+                    $url.= '&userIp=' . (isset( $_SERVER['SERVER_ADDR'] ) ? $_SERVER['SERVER_ADDR'] : '0.0.0.0') ;
+                    $url.= '&id=' . $video_id;
                 break;
 
                 case "vimeo":
-                $url = 'http://vimeo.com/api/v2/video/' . $video_id . '.json';
+                    $url = 'http://vimeo.com/api/v2/video/' . $video_id . '.json';
                 break;
             }
 
@@ -624,22 +628,21 @@ class FluidVideoEmbed{
             if( !empty( $response_json ) ) {
                 switch( $service ){
                     case 'youtube':
-                    $video_meta['title'] = $response_json->entry->title->{'$t'};
+                    $video_meta['title'] = $response_json->items[0]->snippet->title;
                     $video_meta['permalink'] = 'http://www.youtube.com/watch?v=' . $video_id;
-                    $video_meta['description'] = $response_json->entry->{'media$group'}->{'media$description'}->{'$t'};
+                    $video_meta['description'] = $response_json->items[0]->snippet->title;
                     $video_meta['thumbnail'] = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
                     $video_meta['full_image'] = $this->get_youtube_max_thumbnail( $video_id );
-                    $video_meta['created_at'] = strtotime( $response_json->entry->published->{'$t'} );
+                    $video_meta['created_at'] = strtotime( $response_json->items[0]->snippet->publishedAt );
                     $video_meta['aspect'] = 'widescreen';
-                    if( isset( $response_json->entry->{'media$group'}->{'yt$aspectRatio'} ) ) {
-                        $video_meta['aspect'] = ( $response_json->entry->{'media$group'}->{'yt$aspectRatio'}->{'$t'} == 'widescreen' ) ? 'widescreen' : 'standard';
+                    if( isset( $response_json->items[0]->contentDetails->definition ) ) {
+                        $video_meta['aspect'] = ( $response_json->items[0]->contentDetails->definition === 'hd' ) ? 'widescreen' : 'standard';
                     }
-                    $video_meta['duration'] = $response_json->entry->{'media$group'}->{'yt$duration'}->{'seconds'};
+                    $video_meta['duration'] = $response_json->items[0]->contentDetails->duration;
 
-                    if( isset( $response_json->entry->author ) ) {
-                        $author = reset( $response_json->entry->author );
-                        $video_meta['author_name'] = $author->name->{'$t'};
-                        $video_meta['author_url'] = "http://www.youtube.com/user/" . $author->name->{'$t'};
+                    if( isset( $response_json->items[0]->snippet->channelTitle ) ) {
+                        $video_meta['author_name'] = $response_json->items[0]->snippet->channelTitle;
+                        $video_meta['author_url'] = "http://www.youtube.com/channel/" . $response_json->items[0]->snippet->channelId;
                     }
                     break;
 
