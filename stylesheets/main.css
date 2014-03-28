@@ -8,8 +8,8 @@
     padding-bottom: 56.25%; /* This is default, but will be overriden */
     margin: 0.5em 0; /* A bit of margin at the bottom */
 }
-.fve-video-wrapper iframe,  
-.fve-video-wrapper object,  
+.fve-video-wrapper iframe,
+.fve-video-wrapper object,
 .fve-video-wrapper embed {
     position: absolute;
     display: block;
