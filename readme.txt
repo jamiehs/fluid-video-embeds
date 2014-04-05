@@ -13,34 +13,30 @@ Make your "auto embedded" YouTube and Vimeo videos full width (100%) while maint
 
 This plugin modifies the built-in Vimeo and YouTube oEmbed auto-embeds so they are full-width, and flexible while maintaining their original aspect ratio.
 
-As of February 26th 2014 it contains English, Portuguese (BR), and Spanish translations.
+As of version `1.2.2` it contains English, Portuguese (BR), and Spanish translations.
 
 See a live demo here: [Fluid Video Embeds Demo](http://jamie3d.com/fluid-video-embeds-demo/)
 
 **Requirements:** PHP5+, WordPress 3.3+
 
-**Usage:** Install the plugin, activate it, then your YouTube and Vimeo embeds should start to ignore the setting in `Settings > Media > Maximum embed size`
+**Usage:** Install the plugin, activate it, then your YouTube and Vimeo embeds should start to ignore the setting in `Settings > Media > Maximum embed size` You don't need to use embed code or a shortcode, you can simply paste the YouTube or Vimeo URL into your post and it should work.
 
 You can also use the `[fve]` shortcode:
-	
-	[fve]http://youtu.be/oHg5SJYRHA0[/fve]
+
+    [fve]http://youtu.be/oHg5SJYRHA0[/fve]
 
 If you want to use the Fluid Video Embeds method in a php template file in your theme, you can use the do_shortcode method:
-	
-	<?php echo do_shortcode('[fve]http://youtu.be/oHg5SJYRHA0[/fve]'); ?>
+
+    <?php echo do_shortcode('[fve]http://youtu.be/oHg5SJYRHA0[/fve]'); ?>
 
 = How It Works =
-The Fluid Video Embeds plugin aims to cleanly display YouTube and Vimeo videos while allowing them to be fluid(elastic/felxible) as well. The technique
-for doing this is not very new (and is outlined in the credits links below), however I've added a bit of "sugar" to the mix. Since Vimeo and YouTube have robust, 
-open APIs, I'm requesting information about each video server side (which is then cached) and used to determine the optimal aspect ratio for the video container.
-
-Note (September 2013): YouTube's API is not always returning the property I'm looking for. As a workaround, the default for YouTube has been changed to 'widescreen'.
+The Fluid Video Embeds plugin aims to cleanly display YouTube and Vimeo videos while allowing them to be fluid(elastic/felxible) as well. The technique for doing this is not very new (and is outlined in the credits links below), however I've added a bit of "sugar" to the mix. Since Vimeo and YouTube have robust, open APIs, I'm requesting information about each video server side (which is then cached) and used to determine the optimal aspect ratio for the video container.
 
 = Credits =
-*   This plugin uses some code from functions in [SlideDeck 2 Lite](http://wordpress.org/extend/plugins/slidedeck2/) for handling the fetching, caching, and organizing of video meta from the aforementioned providers. Please check out SlideDeck if you need your videos in a sweet jQuery Slider.
-*   The CSS used to create the 100% width effect was curated and posted by [Web Designer Wall](http://webdesignerwall.com) in their post about  [CSS: Elastic Videos](http://webdesignerwall.com/tutorials/css-elastic-videos).
-*   The original CSS is credited to [TJK Design](http://www.tjkdesign.com/articles/how-to-resize-videos-on-the-fly.asp).
-*   The above TJK article then in turn credits [A List Apart](http://www.alistapart.com/) for its article titled: [Creating Intrinsic Ratios for Video](http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/)
+* This plugin uses some code from functions in [SlideDeck 2 Lite](http://wordpress.org/extend/plugins/slidedeck2/) for handling the fetching, caching, and organizing of video meta from the aforementioned providers. Please check out SlideDeck if you need your videos in a sweet jQuery Slider.
+* The CSS used to create the 100% width effect was curated and posted by [Web Designer Wall](http://webdesignerwall.com) in their post about  [CSS: Elastic Videos](http://webdesignerwall.com/tutorials/css-elastic-videos).
+* The original CSS is credited to [TJK Design](http://www.tjkdesign.com/articles/how-to-resize-videos-on-the-fly.asp).
+* The above TJK article then in turn credits [A List Apart](http://www.alistapart.com/) for its article titled: [Creating Intrinsic Ratios for Video](http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/)
 
 == Installation ==
 
@@ -52,22 +48,24 @@ Note (September 2013): YouTube's API is not always returning the property I'm lo
 == Frequently Asked Questions ==
 
 = Why does the plugin only support YouTube and Vimeo? =
-I believe that these are the two most popular video platforms (for my current audience) and I coded them first because I am the most familiar with them. 
+I believe that these are the two most popular video platforms (for my current audience) and I coded them first because I am the most familiar with them.
 I am not opposed to adding video-provider X if their API allows me to.
 
 = Why do you need to make API calls? =
-You can't get the video dimensions (and thus aspect ratio) without doing some sloppy JavaScript (maybe) or making an API call. The only thing that
-makes this plugin special is that fact that it attempts to remove black bars from your video, thus necessitating API calls. The API requests are cached however, so it
-should only have a minimal impact.
+You can't get the video dimensions (and thus aspect ratio) without doing some sloppy JavaScript (maybe) or making an API call. The only thing that makes this plugin special is that fact that it attempts to remove black bars from your video, thus necessitating API calls. The API requests are cached however, so it should only have a minimal impact.
 
 == Screenshots ==
 
 1. Settings page.
 2. Videos with varying aspect ratios in various sized containers are not a problem.
 3. Because the fve plugin uses the iFrame method for embedding YouTube and Vimeo (along with the 100% width technique) the videos are naturally responsive for mobile devices.
-4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. 
+4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile.
 
 == Changelog ==
+= 1.2.3 =
+* Upgraded to version 3 of the YouTube API.
+* Fixes a previous issue that was introduced around version 1.0.3 when the YouTube version 2 API became unreliable.
+
 = 1.2.2 =
 * Added Portuguese translation thanks to Eduardo http://www.linkedin.com/in/eduardotoledano
 * Added a max-width to the settings page.
@@ -101,6 +99,9 @@ Initial release
 
 
 == Upgrade Notice ==
+= 1.2.3 =
+* Fixes bug with 4:3 YouTube aspect ratio (SD) videos.
+
 = 1.2.2 =
 * Adds Portuguese translation.
 
