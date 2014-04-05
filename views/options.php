@@ -24,7 +24,7 @@
                 <h3><?php _e( 'Responsive Hyperlink Options', $namespace ); ?></h3>
                 <input id="fve_responsive_hyperlink" name="data[fve_responsive_hyperlink]" type="checkbox" size="3" value="yes"<?php echo ( $this->fve_responsive_hyperlink == true ) ? ' checked="checked"' : ''; ?>>
                 <label for="fve_responsive_hyperlink"><?php _e( 'Use Responsive Hyperlink?', $namespace ); ?></label>
-                
+
                 <div id="fve_breakpoint_group">
                     <label for="fve_responsive_hyperlink_mq"><?php _e( 'Media Query:', $namespace ); ?></label>
                     <input id="fve_responsive_hyperlink_mq" name="data[fve_responsive_hyperlink_mq]" size="60" value="<?php echo $this->fve_responsive_hyperlink_mq; ?>"> <span class="description"><?php _e( 'Erase this field and save the settings to reset.', $namespace ); ?></span>
