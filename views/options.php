@@ -32,6 +32,14 @@
                     <p class="description"><?php _e( 'The Responsive Hyperlink option will swap the video iFrame with a simple hyperlink to the video URL (if the screen is smaller than the specified breakpoint). On mobile and handheld devices, it is often a better experience to watch the video in the native application or media player. This option tries to enable that better experience. When this option is enabled, the video will show up as a hyperlinked image instead of an actual video player.', $namespace ); ?></p>
                 </div>
             </li>
+            <li class="fve_youtube_options settings-group">
+                <h3><?php _e( 'YouTube Options', $namespace ); ?></h3>
+                <input id="fve_force_youtube_16_9" name="data[fve_force_youtube_16_9]" type="checkbox" size="3" value="yes"<?php echo ( $this->fve_force_youtube_16_9 == true ) ? ' checked="checked"' : ''; ?>>
+                <label for="fve_force_youtube_16_9"><?php _e( 'Force 16:9 aspect Ratio?', $namespace ); ?></label>
+
+                <p class="description"><?php _e( 'Disables aspect ratio detection for YouTube.', $namespace ); ?></p>
+                <p class="description"><?php _e( 'Although YouTube videos uploaded at a 4:3 ratio look better in a 4:3 player, some people have YouTube videos that are 480p but 16:9. This option makes 480p 16:9 videos look better.', $namespace ); ?></p>
+            </li>
             <li class="submit-row">
                 <input type="submit" name="submit" class="button-primary" value="<?php _e( "Save Changes", $namespace ) ?>" />
             </li>
