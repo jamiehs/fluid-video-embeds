@@ -6,7 +6,7 @@
  */
 
 // The current version of this plugin
-if( !defined( 'FLUID_VIDEO_EMBEDS_VERSION' ) ) define( 'FLUID_VIDEO_EMBEDS_VERSION', '1.2.4' );
+if( !defined( 'FLUID_VIDEO_EMBEDS_VERSION' ) ) define( 'FLUID_VIDEO_EMBEDS_VERSION', '1.2.5' );
 
 // The cache prefix
 if( !defined( 'FLUID_VIDEO_EMBEDS_CACHE_PREFIX' ) ) define( 'FLUID_VIDEO_EMBEDS_CACHE_PREFIX', 'fve' );
