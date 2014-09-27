@@ -277,6 +277,7 @@ class FluidVideoEmbed{
      */
     function admin_print_styles() {
         wp_enqueue_style( "{$this->namespace}-admin" );
+        wp_enqueue_style( "{$this->namespace}-main" );
     }
 
     /**
@@ -850,6 +851,9 @@ class FluidVideoEmbed{
     function wp_register_styles() {
         // Admin Stylesheet
         wp_register_style( "{$this->namespace}-admin", FLUID_VIDEO_EMBEDS_URLPATH . "/stylesheets/admin.css", array(), FLUID_VIDEO_EMBEDS_VERSION, 'screen' );
+
+        // Default Stylesheet
+        wp_register_style( "{$this->namespace}-main", FLUID_VIDEO_EMBEDS_URLPATH . "/stylesheets/main.css", array(), FLUID_VIDEO_EMBEDS_VERSION, 'screen' );
     }
 
     /***********************************************************************
