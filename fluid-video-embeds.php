@@ -391,7 +391,7 @@ class FluidVideoEmbed{
                         $wrapper_padding = '56.25%';
                     }
 
-                    $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
+                    $iframe_url = 'http://www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0&start=' . $this->meta['start_time'];
                     $permalink = 'http://www.youtube.com/watch?v=' . $this->meta['id'];
                     $thumbnail = isset( $this->meta['full_image'] ) ? $this->meta['full_image'] : '';
                     break;
@@ -505,14 +505,14 @@ class FluidVideoEmbed{
      * @uses is_wp_error()
      * @uses cache_read()
      * @uses cache_write()
-     * @uses get_video_id_from_url()
+     * @uses get_video_params_from_url()
      * @uses get_video_provider_slug_from_url()
      * @uses wp_remote_get()
      *
      * @return string
      */
     function get_video_thumbnail( $video_url ){
-        $video_id = $this->get_video_id_from_url( $video_url );
+        list($video_id, $start_time) = $this->get_video_params_from_url( $video_url );
         $video_provider = $this->get_video_provider_slug_from_url( $video_url );
 
         $thumbnail_url = '';
@@ -557,10 +557,11 @@ class FluidVideoEmbed{
      *
      * @return string The ID of the video for the service detected.
      */
-    function get_video_id_from_url( $url ){
+    function get_video_params_from_url( $url ){
         preg_match( '/(youtube\.com|youtu\.be|vimeo\.com|dailymotion\.com)/i', $url, $matches );
         $domain = $matches[1];
         $video_id = "";
+        $start_time = 0;
 
         switch( $domain ){
             case 'youtube.com':
@@ -569,6 +570,11 @@ class FluidVideoEmbed{
             } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.*)$/i', $url, $youtube_matches ) ) {
                 $video_id = $youtube_matches[2];
             }
+
+            if( preg_match( '/^[^#]+#t=([0-9]+)m([0-9]+)s.*/i', $url, $youtube_matches ) ) {
+                $start_time = ((int)$youtube_matches[1])*60 + ((int)$youtube_matches[2]);
+            }
+
             break;
 
             case 'youtu.be':
@@ -583,7 +589,7 @@ class FluidVideoEmbed{
             break;
 
         }
-        return $video_id;
+        return array($video_id, $start_time);
     }
 
 
@@ -598,18 +604,19 @@ class FluidVideoEmbed{
      * @uses cache_read()
      * @uses cache_write()
      * @uses get_video_provider_slug_from_url()
-     * @uses get_video_id_from_url()
+     * @uses get_video_params_from_url()
      * @uses wp_remote_get()
      *
      * @return array
      */
     function get_video_meta_from_url( $url ) {
         $service = $this->get_video_provider_slug_from_url( $url );
-        $video_id = $this->get_video_id_from_url( $url );
+        list($video_id, $start_time) = $this->get_video_params_from_url( $url );
 
         $video_meta = array(
             'id' => $video_id,
-            'service' => $service
+            'service' => $service,
+            'start_time' => $start_time
             );
 
         // Create a cache key
