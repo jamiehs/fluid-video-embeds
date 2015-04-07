@@ -404,10 +404,10 @@ class FluidVideoEmbed{
                     break;
                 }
 
-                ob_start( );
+                ob_start();
                 include( FLUID_VIDEO_EMBEDS_DIRNAME . '/views/elements/_iframe_embed.php' );
-                $output = ob_get_contents( );
-                ob_end_clean( );
+                $output = ob_get_contents();
+                ob_end_clean();
 
                 return $output;
             }
@@ -519,11 +519,11 @@ class FluidVideoEmbed{
 
         switch( $video_provider ){
             case 'youtube':
-            $thumbnail_url = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
+            $thumbnail_url = 'https://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
             break;
 
             case 'dailymotion':
-            $thumbnail_url = 'http://www.dailymotion.com/thumbnail/160x120/video/' . $video_id;
+            $thumbnail_url = 'https://www.dailymotion.com/thumbnail/160x120/video/' . $video_id;
             break;
 
             case 'vimeo':
@@ -535,7 +535,7 @@ class FluidVideoEmbed{
 
                 // if cache doesn't exist
             if( !$_thumbnail_url ){
-                $response = wp_remote_get( 'http://vimeo.com/api/v2/video/' . $video_id . '.json' );
+                $response = wp_remote_get( 'https://vimeo.com/api/v2/video/' . $video_id . '.json' );
                 if( !is_wp_error( $response ) ) {
                     $response_json = json_decode( $response['body'] );
                     $video = reset( $response_json );
@@ -629,7 +629,7 @@ class FluidVideoEmbed{
                 break;
 
                 case "vimeo":
-                    $url = 'http://vimeo.com/api/v2/video/' . $video_id . '.json';
+                    $url = 'https://vimeo.com/api/v2/video/' . $video_id . '.json';
                 break;
             }
 
@@ -651,9 +651,9 @@ class FluidVideoEmbed{
                     if( $response_json->pageInfo->totalResults == 0 ) break;
 
                     $video_meta['title'] = $response_json->items[0]->snippet->title;
-                    $video_meta['permalink'] = 'http://www.youtube.com/watch?v=' . $video_id;
+                    $video_meta['permalink'] = 'https://www.youtube.com/watch?v=' . $video_id;
                     $video_meta['description'] = $response_json->items[0]->snippet->title;
-                    $video_meta['thumbnail'] = 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
+                    $video_meta['thumbnail'] = 'https://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
                     $video_meta['full_image'] = $this->get_youtube_max_thumbnail( $video_id );
                     $video_meta['created_at'] = strtotime( $response_json->items[0]->snippet->publishedAt );
                     $video_meta['aspect'] = 'widescreen';
@@ -669,14 +669,14 @@ class FluidVideoEmbed{
 
                     if( isset( $response_json->items[0]->snippet->channelTitle ) ) {
                         $video_meta['author_name'] = $response_json->items[0]->snippet->channelTitle;
-                        $video_meta['author_url'] = "http://www.youtube.com/channel/" . $response_json->items[0]->snippet->channelId;
+                        $video_meta['author_url'] = "https://www.youtube.com/channel/" . $response_json->items[0]->snippet->channelId;
                     }
                     break;
 
                     case 'vimeo':
                     $video = reset( $response_json );
                     $video_meta['title'] = $video->title;
-                    $video_meta['permalink'] = 'http://vimeo.com/' . $video_id;
+                    $video_meta['permalink'] = 'https://vimeo.com/' . $video_id;
                     $video_meta['description'] =  $video->description;
                     $video_meta['thumbnail'] = $video->thumbnail_medium;
                     $video_meta['full_image'] = $video->thumbnail_large;
@@ -709,7 +709,7 @@ class FluidVideoEmbed{
     function get_youtube_max_thumbnail( $video_id ) {
         if( $this->try_to_get_youtube_max_image ) {
             // The URL of the maximum resolution YouTube thumbnail
-            $max_res_url = 'http://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg';
+            $max_res_url = 'https://img.youtube.com/vi/' . $video_id . '/maxresdefault.jpg';
             $cache_key = $max_res_url . 'max_res_test';
             $cache_duration = 60 * 60 * 24 * 2; // Two days
 
@@ -734,7 +734,7 @@ class FluidVideoEmbed{
             }
         }
 
-        return 'http://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
+        return 'https://img.youtube.com/vi/' . $video_id . '/mqdefault.jpg';
     }
 
     /**
