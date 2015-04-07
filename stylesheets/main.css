@@ -1,12 +1,11 @@
-/* Thanks to Web Designer Wall for writing about this technique: http://webdesignerwall.com/tutorials/css-elastic-videos */
-/* And to A List Apart: http://www.alistapart.com/articles/creating-intrinsic-ratios-for-video/ */
+/* Fluid Video Embeds */
 .fve-video-wrapper {
     position: relative;
     overflow: hidden;
     height: 0;
     background-color: transparent;
-    padding-bottom: 56.25%; /* This is default, but will be overriden */
-    margin: 0.5em 0; /* A bit of margin at the bottom */
+    padding-bottom: 56.25%;
+    margin: 0.5em 0;
 }
 .fve-video-wrapper iframe,
 .fve-video-wrapper object,
@@ -41,4 +40,3 @@
 .fve-video-wrapper a.hyperlink-image:hover .fve-play-button {
     background-color: rgba(0, 0, 0, 0.85);
 }
-/* End of standard styles */

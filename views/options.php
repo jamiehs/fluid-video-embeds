@@ -47,6 +47,13 @@
 
                 <p class="description"><?php _e( 'Disables aspect ratio detection for Vimeo.', $namespace ); ?></p>
             </li>
+            <li class="disable_css settings-group">
+                <h3><?php _e( 'Disable CSS?', $namespace ); ?></h3>
+                <input id="fve_disable_css" name="data[fve_disable_css]" type="checkbox" size="3" value="yes"<?php echo ( $this->fve_disable_css == true ) ? ' checked="checked"' : ''; ?>>
+                <label for="fve_disable_css"><?php _e( 'Disable CSS Output?', $namespace ); ?></label>
+
+                <p class="description"><?php echo sprintf( __( 'Advanced: Prevents the plugin from outputting a %1$s tag with the relevant CSS. If this option is enabled, you will need to add %2$sthis CSS%3$s to your theme stylesheet. (after saving the settings)', $namespace ), '&lt;style&gt;', '<a href="' . admin_url('admin-ajax.php?action=fve_show_css') . '" target="_blank">', '</a>' ); ?></p>
+            </li>
             <li class="submit-row">
                 <input type="submit" name="submit" class="button-primary" value="<?php _e( "Save Changes", $namespace ) ?>" />
             </li>
