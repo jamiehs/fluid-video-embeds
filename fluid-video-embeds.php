@@ -33,6 +33,7 @@ class FluidVideoEmbed{
             'fve_alignment' => 'left',
             'fve_responsive_hyperlink' => false,
             'fve_force_youtube_16_9' => false,
+            'fve_force_vimeo_16_9' => false,
             'fve_responsive_hyperlink_mq' => '@media screen and (max-device-width: 768px)',
             );
 
@@ -62,6 +63,10 @@ class FluidVideoEmbed{
         $this->fve_force_youtube_16_9 = (bool) $this->get_option( 'fve_force_youtube_16_9' );
         if ( empty( $this->fve_force_youtube_16_9 ) ) {
             $this->fve_force_youtube_16_9 = $this->defaults['fve_force_youtube_16_9'];
+        }
+        $this->fve_force_vimeo_16_9 = (bool) $this->get_option( 'fve_force_vimeo_16_9' );
+        if ( empty( $this->fve_force_vimeo_16_9 ) ) {
+            $this->fve_force_vimeo_16_9 = $this->defaults['fve_force_vimeo_16_9'];
         }
 
         $this->iframe_before_src = '<iframe src="';
@@ -685,6 +690,10 @@ class FluidVideoEmbed{
                     $video_meta['author_avatar'] = $video->user_portrait_small;
                     $video_meta['aspect'] = $video->height / $video->width;
                     $video_meta['duration'] = $video->duration;
+                    // Allow the widescreen option to be overriden
+                    if( $this->fve_force_vimeo_16_9 ) {
+                        $video_meta['aspect'] = 1080/1920; // 16:9
+                    }
                     break;
                 }
             }
