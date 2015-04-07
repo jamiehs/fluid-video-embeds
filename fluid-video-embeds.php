@@ -4,7 +4,7 @@ Plugin Name: Fluid Video Embeds
 Plugin URI: http://wordpress.org/extend/plugins/fluid-video-embeds/
 Description: Makes your YouTube and Vimeo auto-embeds fluid/full width.
 Author: jamie3d
-Version: 1.2.6
+Version: 1.2.7
 Author URI: http://jamie3d.com
 */
 
@@ -34,6 +34,7 @@ class FluidVideoEmbed{
             'fve_responsive_hyperlink' => false,
             'fve_force_youtube_16_9' => false,
             'fve_force_vimeo_16_9' => false,
+            'fve_disable_css' => false,
             'fve_responsive_hyperlink_mq' => '@media screen and (max-device-width: 768px)',
             );
 
@@ -59,7 +60,7 @@ class FluidVideoEmbed{
             $this->fve_responsive_hyperlink_mq = $this->defaults['fve_responsive_hyperlink_mq'];
         }
 
-        // Autoload the Responsive Hyperlink options
+        // Autoload 16:9 options
         $this->fve_force_youtube_16_9 = (bool) $this->get_option( 'fve_force_youtube_16_9' );
         if ( empty( $this->fve_force_youtube_16_9 ) ) {
             $this->fve_force_youtube_16_9 = $this->defaults['fve_force_youtube_16_9'];
@@ -67,6 +68,12 @@ class FluidVideoEmbed{
         $this->fve_force_vimeo_16_9 = (bool) $this->get_option( 'fve_force_vimeo_16_9' );
         if ( empty( $this->fve_force_vimeo_16_9 ) ) {
             $this->fve_force_vimeo_16_9 = $this->defaults['fve_force_vimeo_16_9'];
+        }
+
+        // Autoload disable CSS option
+        $this->fve_disable_css = (bool) $this->get_option( 'fve_disable_css' );
+        if ( empty( $this->fve_disable_css ) ) {
+            $this->fve_disable_css = $this->defaults['fve_disable_css'];
         }
 
         $this->iframe_before_src = '<iframe src="';
@@ -87,7 +94,9 @@ class FluidVideoEmbed{
         add_filter('embed_oembed_html', array( &$this, 'filter_video_embed' ), 16, 3);
 
         // Add the Fluid Video Embeds Stylesheets
-        add_action('wp_head', array( &$this, 'add_head_css' ) );
+        if( !$this->fve_disable_css ) {
+            add_action('wp_head', array( &$this, 'add_head_css' ) );
+        }
 
         // Options page for configuration
         add_action( 'admin_menu', array( &$this, 'admin_menu' ) );
@@ -116,6 +125,9 @@ class FluidVideoEmbed{
         // Add the default stylesheet to the editor
         add_action( 'after_setup_theme', array( &$this, 'add_editor_styles' ) );
 
+        // Admin 'Ajax' view for showing calculated CSS.
+        add_action( 'wp_ajax_fve_show_css', array( &$this, 'show_css' ) );
+
         // Add the fve shortcode
         add_shortcode( 'fve', array( &$this, 'shortcode' ) );
     }
@@ -137,6 +149,15 @@ class FluidVideoEmbed{
     function add_head_css() {
         echo '<!-- Start Fluid Video Embeds Style Tag -->' . "\n";
         echo '<style type="text/css">' . "\n";
+        $this->head_css();
+        echo '</style>' . "\n";
+        echo '<!-- End Fluid Video Embeds Style Tag -->' . "\n";
+    }
+
+    /**
+     * Echoes the generated CSS for the plugin
+     */
+    function head_css() {
         include( FLUID_VIDEO_EMBEDS_DIRNAME . '/stylesheets/main.css' );
 
         // Additional styles for maximum width
@@ -168,14 +189,12 @@ class FluidVideoEmbed{
             echo '    .fve-video-wrapper a.hyperlink-image { display: block; }' . "\n";
             echo '}' . "\n";
         }
-        echo '</style>' . "\n";
-        echo '<!-- End Fluid Video Embeds Style Tag -->' . "\n";
     }
 
     /**
      * Process update page form submissions
      *
-     * @uses RelatedServiceComments::sanitize()
+     * @uses self::sanitize()
      * @uses wp_redirect()
      * @uses wp_verify_nonce()
      */
@@ -804,7 +823,7 @@ class FluidVideoEmbed{
      * This function will handling routing of form submissions to the appropriate
      * form processor.
      *
-     * @uses RelatedServiceComments::_admin_options_update()
+     * @uses self::_admin_options_update()
      */
     function route() {
         $uri = $_SERVER['REQUEST_URI'];
@@ -828,6 +847,18 @@ class FluidVideoEmbed{
                 // Nothing here yet...
             }
         }
+    }
+
+    /**
+     * Admin Ajax function to simply show the generated CSS
+     *
+     * @uses head_css()
+     * @uses wp_die()
+     */
+    function show_css() {
+        header('Content-Type: text/plain');
+        $this->head_css();
+        wp_die();
     }
 
     /**

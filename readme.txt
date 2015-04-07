@@ -62,6 +62,11 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile.
 
 == Changelog ==
+= 1.2.7 =
+* Added https:// to certain endpoint and asset URLs in the plugin (better https support).
+* Added 16:9 override for Vimeo videos. (It seems some servers are unable to reach Vimeo's API).
+* Added option to disable CSS output. This was breaking minification for some users. There is now an accompanying URL that shows the generated CSS for manual inclusion into the theme if desired.
+
 = 1.2.6 =
 * Removes the scheme (`http://`) from the iframe URLs for better `https://` support. Thanks to NicholasCook for the fix.
 
@@ -109,6 +114,9 @@ Initial release
 
 
 == Upgrade Notice ==
+= 1.2.7 =
+* Vimeo 16:9 override, more https fixes
+
 = 1.2.6 =
 * Fixes https issue
 
