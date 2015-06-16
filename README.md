@@ -60,13 +60,13 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 ![1. Settings page.](http://ps.w.org/fluid-video-embeds/assets/screenshot-1.png)
 
 ### 2. Videos with varying aspect ratios in various sized containers are not a problem. ###
-![2. Videos with varying aspect ratios in various sized containers are not a problem.](http://ps.w.org/fluid-video-embeds/assets/screenshot-2.png)
+![2. Videos with varying aspect ratios in various sized containers are not a problem.](http://ps.w.org/fluid-video-embeds/assets/screenshot-2.jpg)
 
 ### 3. Because the fve plugin uses the iFrame method for embedding YouTube and Vimeo (along with the 100% width technique) the videos are naturally responsive for mobile devices. ###
-![3. Because the fve plugin uses the iFrame method for embedding YouTube and Vimeo (along with the 100% width technique) the videos are naturally responsive for mobile devices.](http://ps.w.org/fluid-video-embeds/assets/screenshot-3.png)
+![3. Because the fve plugin uses the iFrame method for embedding YouTube and Vimeo (along with the 100% width technique) the videos are naturally responsive for mobile devices.](http://ps.w.org/fluid-video-embeds/assets/screenshot-3.jpg)
 
 ### 4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile. ###
-![4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile.](http://ps.w.org/fluid-video-embeds/assets/screenshot-4.png)
+![4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile.](http://ps.w.org/fluid-video-embeds/assets/screenshot-4.jpg)
 
 
 ## Changelog ##
