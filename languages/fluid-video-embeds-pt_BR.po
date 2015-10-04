@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fluid Video Embeds\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: Wed, 05 Feb 2014 18:46:40 +0000\n"
-"PO-Revision-Date: Thu, 27 Feb 2014 06:12:10 +0000\n"
+"POT-Creation-Date: 2014-02-05 18:46+0000\n"
+"PO-Revision-Date: 2015-10-04 18:20+0100\n"
 "Last-Translator: Jamie Hamel-Smith\n"
 "Language-Team: jamiehs\n"
 "Language: Portuguese (Brazil)\n"
@@ -11,98 +11,77 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-SourceCharset: UTF-8\n"
 "X-Generator: Loco https://localise.biz\n"
 "X-Loco-Source-Locale: en_US\n"
 "X-Loco-Target-Locale: pt_BR\n"
-"X-Loco-Tagged: \n"
-"X-Poedit-SourceCharset: UTF-8"
+"X-Loco-Project-Id: 1043\n"
+"X-Loco-Api-Version: 1.0.12"
 
-#: Center
-msgid "Center"
-msgstr "Centro"
-
-#: Left
-msgid "Left"
-msgstr "Esquerda"
-
-#: Right
-msgid "Right"
-msgstr "Direita"
-
-#: Settings
+#: fluid-video-embeds.php:282 fluid-video-embeds.php:812 loco:#: 52f287681b2ecb974ea2e5fc
 msgid "Settings"
 msgstr "Configurações"
 
-#: container-alignment
-msgid "Container Alignment"
-msgstr "Alinhamento dos contâiners"
-
-#: erase-this-field-and-save-the-settings-to-reset
-msgid "Erase this field and save the settings to reset."
-msgstr "Apagar campo e salvar configurações para reiniciar."
-
-#: fluid-video-embeds
-msgid "Fluid Video Embeds"
-msgstr "Fluid Video Embeds"
-
-#: http-jamie3d-com
-msgid "http://jamie3d.com"
-msgstr "http://jamie3d.com"
-
-#: http-wordpress-org-extend-plugins-fluid-video-embe
-msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
-msgstr "http://wordpress.org/extend/plugins/fluid-video-embeds/"
-
-#: if-the-width-is-smaller-how-should-the-video-be-al
-msgid "If the width is smaller, how should the video be aligned?"
-msgstr "Se a largura for menor, qual deve ser o alinhamento do vídeo?"
-
-#: jamie3d
-msgid "jamie3d"
-msgstr "jamie3d"
-
-#: makes-your-youtube-and-vimeo-auto-embeds-fluid-ful
-msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
-msgstr ""
-"Estabelece seus auto-embeds do YouTube e Vimeo como fluidos (fluid)/largura "
-"máxima."
-
-#: max-width
-msgid "Max width:"
-msgstr "Largura máx."
-
-#: maximum-width
+#: views/options.php:8 loco:52f287681b2ecb974ea2e5fd
 msgid "Maximum Width"
 msgstr "Largura máxima"
 
-#: media-query
-msgid "Media Query:"
-msgstr "Media Query:"
+#: views/options.php:9 loco:52f287681b2ecb974ea2e5fe
+msgid "Max width:"
+msgstr "Largura máx."
 
-#: responsive-hyperlink-options
-msgid "Responsive Hyperlink Options"
-msgstr "Opções de Responsive Hyperlink"
-
-#: save-changes
-msgid "Save Changes"
-msgstr "Salvar alterações"
-
-#: set-this-to-x0x-for-no-max-width-otherwise-use-pix
+#: views/options.php:11 loco:52f287681b2ecb974ea2e5ff
 msgid ""
-"Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: "
-"%1$s500px%2$s or %1$s22em%2$s)"
+"Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: %"
+"1$s500px%2$s or %1$s22em%2$s)"
 msgstr ""
 "Selecione %1$s0%2$s para largura máxima indefinida. Do contrário, use pixels, "
 "ou ems. (ex: %1$s500px%2$s ou %1$s22em%2$s)"
 
-#: the-responsive-hyperlink-option-will-swap-the-vide
+#: views/options.php:14 loco:52f287681b2ecb974ea2e600
+msgid "Container Alignment"
+msgstr "Alinhamento dos contâiners"
+
+#: views/options.php:16 loco:52f287681b2ecb974ea2e601
+msgid "Left"
+msgstr "Esquerda"
+
+#: views/options.php:18 loco:52f287681b2ecb974ea2e602
+msgid "Center"
+msgstr "Centro"
+
+#: views/options.php:20 loco:52f287681b2ecb974ea2e603
+msgid "Right"
+msgstr "Direita"
+
+#: views/options.php:21 loco:52f287681b2ecb974ea2e604
+msgid "If the width is smaller, how should the video be aligned?"
+msgstr "Se a largura for menor, qual deve ser o alinhamento do vídeo?"
+
+#: views/options.php:24 loco:52f287681b2ecb974ea2e605
+msgid "Responsive Hyperlink Options"
+msgstr "Opções de Responsive Hyperlink"
+
+#: views/options.php:26 loco:52f287681b2ecb974ea2e606
+msgid "Use Responsive Hyperlink?"
+msgstr "Usar Responsive Hyperlink?"
+
+#: views/options.php:29 loco:52f287681b2ecb974ea2e607
+msgid "Media Query:"
+msgstr "Media Query:"
+
+#: views/options.php:30 loco:52f287681b2ecb974ea2e608
+msgid "Erase this field and save the settings to reset."
+msgstr "Apagar campo e salvar configurações para reiniciar."
+
+#: views/options.php:32 loco:52f287681b2ecb974ea2e609
 msgid ""
 "The Responsive Hyperlink option will swap the video iFrame with a simple "
 "hyperlink to the video URL (if the screen is smaller than the specified "
-"breakpoint). On mobile and handheld devices, it is often a better experience to "
-"watch the video in the native application or media player. This option tries to "
-"enable that better experience. When this option is enabled, the video will show "
-"up as a hyperlinked image instead of an actual video player."
+"breakpoint). On mobile and handheld devices, it is often a better experience "
+"to watch the video in the native application or media player. This option "
+"tries to enable that better experience. When this option is enabled, the "
+"video will show up as a hyperlinked image instead of an actual video player."
 msgstr ""
 "As opções de Responsive Hyperlink irão substituir o iFrame do vídeo com um "
 "simples hyperlink para o vídeo (se a janela for menor que o breakpoint "
@@ -111,6 +90,81 @@ msgstr ""
 "é selecionada, o vídeo aparecerá como uma imagem com hyperlink, em vez de "
 "aparecer como aplicativo."
 
-#: use-responsive-hyperlink
-msgid "Use Responsive Hyperlink?"
-msgstr "Usar Responsive Hyperlink?"
+#: views/options.php:58 loco:52f287681b2ecb974ea2e60a
+msgid "Save Changes"
+msgstr "Salvar alterações"
+
+#. Plugin Name of the plugin/theme
+#: loco:52f287681b2ecb974ea2e60b
+msgid "Fluid Video Embeds"
+msgstr "Fluid Video Embeds"
+
+#. Plugin URI of the plugin/theme
+#: loco:52f287681b2ecb974ea2e60c
+msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+msgstr "http://wordpress.org/extend/plugins/fluid-video-embeds/"
+
+#. Description of the plugin/theme
+#: loco:52f287681b2ecb974ea2e60d
+msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
+msgstr ""
+"Estabelece seus auto-embeds do YouTube e Vimeo como fluidos (fluid)/largura "
+"máxima."
+
+#. Author of the plugin/theme
+#: loco:52f287681b2ecb974ea2e60e
+msgid "jamie3d"
+msgstr "jamie3d"
+
+#. Author URI of the plugin/theme
+#: loco:52f287681b2ecb974ea2e60f
+msgid "http://jamie3d.com"
+msgstr "http://jamie3d.com"
+
+#: views/options.php:36 loco:55236edb14d725f1118b4567
+msgid "YouTube Options"
+msgstr "Opções YouTube"
+
+#: views/options.php:38 views/options.php:46 loco:55236edb14d725f1118b4568
+msgid "Force 16:9 aspect Ratio?"
+msgstr "Impor proporção de 16:9?"
+
+#: views/options.php:40 loco:55236edb14d725f1118b4569
+msgid "Disables aspect ratio detection for YouTube."
+msgstr "Desabilita aspecto detecção razão para o YouTube."
+
+#: views/options.php:41 loco:55236edb14d725f1118b456a
+msgid ""
+"Although YouTube videos uploaded at a 4:3 ratio look better in a 4:3 player, "
+"some people have YouTube videos that are 480p but 16:9. This option makes "
+"480p 16:9 videos look better."
+msgstr ""
+"Apesar de vídeos publicados no YouTube formato 4:3 olhar melhor em 4:3 player "
+"de vídeo, algumas pessoas têm vídeos do YouTube que são 480p, mas ainda 16:9. "
+"Esta opção faz 480p 16:9 vídeos olhar melhor."
+
+#: views/options.php:44 loco:55236edb14d725f1118b456b
+msgid "Vimeo Options"
+msgstr "Opções Vimeo"
+
+#: views/options.php:48 loco:55236edb14d725f1118b456c
+msgid "Disables aspect ratio detection for Vimeo."
+msgstr "Desabilita aspecto detecção razão para o Vimeo."
+
+#: views/options.php:51 loco:55236edb14d725f1118b456d
+msgid "Disable CSS?"
+msgstr "Desabilitar CSS?"
+
+#: views/options.php:53 loco:55236edb14d725f1118b456e
+msgid "Disable CSS Output?"
+msgstr "Desativar a saída CSS?"
+
+#: views/options.php:55 loco:55236edb14d725f1118b456f
+msgid ""
+"Advanced: Prevents the plugin from outputting a %1$s tag with the relevant "
+"CSS. If this option is enabled, you will need to add %2$sthis CSS%3$s to your "
+"theme stylesheet. (after saving the settings)"
+msgstr ""
+"Avançado: Previne Plugin saída %1$s tag com CSS relacionado. Se essa opção "
+"for ativada, você precisa colocar %2$s este CSS %3$s em seu tema de estilo. ("
+"depois de salvar as configurações)"

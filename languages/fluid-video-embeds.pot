@@ -4,93 +4,76 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Fluid Video Embeds\n"
 "Report-Msgid-Bugs-To: Jamie Hamel-Smith\n"
-"POT-Creation-Date: Fri, 14 Feb 2014 04:25:18 +0000\n"
+"POT-Creation-Date: 2015-10-04 10:13-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: \n"
-"Language: \n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Loco https://localise.biz\n"
-"X-Poedit-SourceCharset: UTF-8"
+"X-Generator: Poedit 1.8.5\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _e;__\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: .\n"
 
-#: Center
-msgid "Center"
-msgstr ""
-
-#: Left
-msgid "Left"
-msgstr ""
-
-#: Right
-msgid "Right"
-msgstr ""
-
-#: Settings
+#: fluid-video-embeds.php:282 fluid-video-embeds.php:812
 msgid "Settings"
 msgstr ""
 
-#: container-alignment
-msgid "Container Alignment"
-msgstr ""
-
-#: erase-this-field-and-save-the-settings-to-reset
-msgid "Erase this field and save the settings to reset."
-msgstr ""
-
-#: fluid-video-embeds
-msgid "Fluid Video Embeds"
-msgstr ""
-
-#: http-jamie3d-com
-msgid "http://jamie3d.com"
-msgstr ""
-
-#: http-wordpress-org-extend-plugins-fluid-video-embe
-msgid "http://wordpress.org/extend/plugins/fluid-video-embeds/"
-msgstr ""
-
-#: if-the-width-is-smaller-how-should-the-video-be-al
-msgid "If the width is smaller, how should the video be aligned?"
-msgstr ""
-
-#: jamie3d
-msgid "jamie3d"
-msgstr ""
-
-#: makes-your-youtube-and-vimeo-auto-embeds-fluid-ful
-msgid "Makes your YouTube and Vimeo auto-embeds fluid/full width."
-msgstr ""
-
-#: max-width
-msgid "Max width:"
-msgstr ""
-
-#: maximum-width
+#: views/options.php:8
 msgid "Maximum Width"
 msgstr ""
 
-#: media-query
-msgid "Media Query:"
+#: views/options.php:9
+msgid "Max width:"
 msgstr ""
 
-#: responsive-hyperlink-options
-msgid "Responsive Hyperlink Options"
-msgstr ""
-
-#: save-changes
-msgid "Save Changes"
-msgstr ""
-
-#: set-this-to-x0x-for-no-max-width-otherwise-use-pix
+#: views/options.php:11
+#, php-format
 msgid ""
 "Set this to %1$s0%2$s for no max width. Otherwise, use pixels, or ems. (eg: "
 "%1$s500px%2$s or %1$s22em%2$s)"
 msgstr ""
 
-#: the-responsive-hyperlink-option-will-swap-the-vide
+#: views/options.php:14
+msgid "Container Alignment"
+msgstr ""
+
+#: views/options.php:16
+msgid "Left"
+msgstr ""
+
+#: views/options.php:18
+msgid "Center"
+msgstr ""
+
+#: views/options.php:20
+msgid "Right"
+msgstr ""
+
+#: views/options.php:21
+msgid "If the width is smaller, how should the video be aligned?"
+msgstr ""
+
+#: views/options.php:24
+msgid "Responsive Hyperlink Options"
+msgstr ""
+
+#: views/options.php:26
+msgid "Use Responsive Hyperlink?"
+msgstr ""
+
+#: views/options.php:29
+msgid "Media Query:"
+msgstr ""
+
+#: views/options.php:30
+msgid "Erase this field and save the settings to reset."
+msgstr ""
+
+#: views/options.php:32
 msgid ""
 "The Responsive Hyperlink option will swap the video iFrame with a simple "
 "hyperlink to the video URL (if the screen is smaller than the specified "
@@ -100,6 +83,49 @@ msgid ""
 "up as a hyperlinked image instead of an actual video player."
 msgstr ""
 
-#: use-responsive-hyperlink
-msgid "Use Responsive Hyperlink?"
+#: views/options.php:36
+msgid "YouTube Options"
+msgstr ""
+
+#: views/options.php:38 views/options.php:46
+msgid "Force 16:9 aspect Ratio?"
+msgstr ""
+
+#: views/options.php:40
+msgid "Disables aspect ratio detection for YouTube."
+msgstr ""
+
+#: views/options.php:41
+msgid ""
+"Although YouTube videos uploaded at a 4:3 ratio look better in a 4:3 player, "
+"some people have YouTube videos that are 480p but 16:9. This option makes 480p "
+"16:9 videos look better."
+msgstr ""
+
+#: views/options.php:44
+msgid "Vimeo Options"
+msgstr ""
+
+#: views/options.php:48
+msgid "Disables aspect ratio detection for Vimeo."
+msgstr ""
+
+#: views/options.php:51
+msgid "Disable CSS?"
+msgstr ""
+
+#: views/options.php:53
+msgid "Disable CSS Output?"
+msgstr ""
+
+#: views/options.php:55
+#, php-format
+msgid ""
+"Advanced: Prevents the plugin from outputting a %1$s tag with the relevant CSS. "
+"If this option is enabled, you will need to add %2$sthis CSS%3$s to your theme "
+"stylesheet. (after saving the settings)"
+msgstr ""
+
+#: views/options.php:58
+msgid "Save Changes"
 msgstr ""
