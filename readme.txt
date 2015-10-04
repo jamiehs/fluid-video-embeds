@@ -3,7 +3,7 @@ Contributors: jamie3d
 Donate Link: http://goo.gl/JTYF2
 Tags: video, youtube, vimeo, fluid, flexible, elastic, responsive, 100%, full width, embed, oEmbed
 Requires at least: 3.3
-Tested up to: 4.1
+Tested up to: 4.3.1
 Stable tag: trunk
 License: GPLv3
 
@@ -62,6 +62,9 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile.
 
 == Changelog ==
+= 1.2.8 =
+* Updating translation text domain
+
 = 1.2.7 =
 * Added https:// to certain endpoint and asset URLs in the plugin (better https support).
 * Added 16:9 override for Vimeo videos. (It seems some servers are unable to reach Vimeo's API).
@@ -112,6 +115,10 @@ Added `wmode=transparent&` to the YouTube embed URL. This prevents YouTube video
 = 1.0 =
 Initial release
 
+
+== Upgrade Notice ==
+= 1.2.8 =
+* Updating translation text domain
 
 == Upgrade Notice ==
 = 1.2.7 =

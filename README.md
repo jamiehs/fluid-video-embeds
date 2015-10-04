@@ -1,11 +1,11 @@
 # Fluid Video Embeds #
-**Contributors:** jamie3d  
-**Donate Link:** http://goo.gl/JTYF2  
-**Tags:** video, youtube, vimeo, fluid, flexible, elastic, responsive, 100%, full width, embed, oEmbed  
-**Requires at least:** 3.3  
-**Tested up to:** 4.1  
-**Stable tag:** trunk  
-**License:** GPLv3  
+**Contributors:** jamie3d
+**Donate Link:** http://goo.gl/JTYF2
+**Tags:** video, youtube, vimeo, fluid, flexible, elastic, responsive, 100%, full width, embed, oEmbed
+**Requires at least:** 3.3
+**Tested up to:** 4.3.1
+**Stable tag:** trunk
+**License:** GPLv3
 
 Make your "auto embedded" YouTube and Vimeo videos full width (100%) while maintaining their original aspect ratio
 
@@ -70,6 +70,9 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 
 
 ## Changelog ##
+### 1.2.8 ###
+* Updating translation text domain
+
 ### 1.2.7 ###
 * Added https:// to certain endpoint and asset URLs in the plugin (better https support).
 * Added 16:9 override for Vimeo videos. (It seems some servers are unable to reach Vimeo's API).
@@ -122,6 +125,9 @@ Initial release
 
 
 ## Upgrade Notice ##
+### 1.2.8 ###
+* Updating translation text domain
+
 ### 1.2.7 ###
 * Vimeo 16:9 override, more https fixes
 
