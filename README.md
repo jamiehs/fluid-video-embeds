@@ -72,6 +72,7 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 ## Changelog ##
 ### 1.2.8 ###
 * Updating translation text domain
+* Updating translations for es_ES and pt_BR
 
 ### 1.2.7 ###
 * Added https:// to certain endpoint and asset URLs in the plugin (better https support).
@@ -126,7 +127,7 @@ Initial release
 
 ## Upgrade Notice ##
 ### 1.2.8 ###
-* Updating translation text domain
+* Updating translations for es_ES and pt_BR
 
 ### 1.2.7 ###
 * Vimeo 16:9 override, more https fixes
