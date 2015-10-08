@@ -29,6 +29,16 @@ If you want to use the Fluid Video Embeds method in a php template file in your 
 
     <?php echo do_shortcode('[fve]http://youtu.be/oHg5SJYRHA0[/fve]'); ?>
 
+You can filter the YouTube and or Vimeo URLs like this if you want to customize them (like explicitly specifying the https scheme):
+
+    // Filter the iframe URL for Vimeo
+    add_filter( 'fve_vimeo_iframe_url', 'fve_vimeo_iframe_url', 10, 2 );
+    function fve_vimeo_iframe_url( $vimeo_iframe_url, $video_meta ) {
+      return 'https://player.vimeo.com/video/' . $video_meta['id'] . '?portrait=0&byline=0&title=0';
+    }
+
+Check the source to see all of the filters by searching for `apply_filters(`
+
 ### How It Works ###
 The Fluid Video Embeds plugin aims to cleanly display YouTube and Vimeo videos while allowing them to be fluid(elastic/felxible) as well. The technique for doing this is not very new (and is outlined in the credits links below), however I've added a bit of "sugar" to the mix. Since Vimeo and YouTube have robust, open APIs, I'm requesting information about each video server side (which is then cached) and used to determine the optimal aspect ratio for the video container.
 
@@ -70,6 +80,9 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 
 
 ## Changelog ##
+### 1.2.9 ###
+* You can now filter the video URLs and permalinks with `fve_youtube_iframe_url`, `fve_youtube_permalink`, etc.
+
 ### 1.2.8 ###
 * Updating translation text domain
 * Updating translations for es_ES and pt_BR
@@ -126,6 +139,9 @@ Initial release
 
 
 ## Upgrade Notice ##
+### 1.2.9 ###
+* You can now filter the video URLs and permalinks with `fve_youtube_iframe_url`, `fve_youtube_permalink`, etc.
+
 ### 1.2.8 ###
 * Updating translations for es_ES and pt_BR
 
