@@ -1,3 +1,5 @@
+[![WordPress](https://img.shields.io/wordpress/plugin/dt/fluid-video-embeds.svg)](https://wordpress.org/plugins/fluid-video-embeds/)
+
 # Fluid Video Embeds #
 **Contributors:** jamie3d
 **Donate Link:** http://goo.gl/JTYF2
