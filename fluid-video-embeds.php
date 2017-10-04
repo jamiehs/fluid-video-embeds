@@ -612,23 +612,27 @@ class FluidVideoEmbed{
 
         switch( $domain ){
             case 'youtube.com':
-            if( preg_match( '/^[^v]+v.(.{11}).*/i', $url, $youtube_matches ) ) {
-                $video_id = $youtube_matches[1];
-            } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.*)$/i', $url, $youtube_matches ) ) {
-                $video_id = $youtube_matches[2];
-            }
-            break;
+                if( preg_match( '/list=(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                } elseif( preg_match( '/^[^v]+v.(.{11}).*/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[2];
+                }
+                break;
 
             case 'youtu.be':
-            if( preg_match( '/youtu.be\/(.*)$/i', $url, $youtube_matches ) ) {
-                $video_id = $youtube_matches[1];
-            }
-            break;
+                if( preg_match( '/list=(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                } elseif( preg_match( '/youtu.be\/(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                }
+                break;
 
             case 'vimeo.com':
-            preg_match( '/(clip\:)?(\d+).*$/i', $url, $vimeo_matches );
-            $video_id = $vimeo_matches[2];
-            break;
+                preg_match( '/(clip\:)?(\d+).*$/i', $url, $vimeo_matches );
+                $video_id = $vimeo_matches[2];
+                break;
 
         }
         return $video_id;
