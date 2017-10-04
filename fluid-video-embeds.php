@@ -416,8 +416,26 @@ class FluidVideoEmbed{
                     if( isset( $this->meta['aspect'] ) && $this->meta['aspect'] == 'widescreen' ) {
                         $wrapper_padding = '56.25%';
                     }
+ 
+                    parse_str( parse_url( $url, PHP_URL_QUERY ), $queries );
 
-                    $iframe_url = '//www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
+                    if (isset( $queries['v'])) {
+                        unset($queries['v']);
+                    }
+                    if (!isset( $queries['wmode'])) {
+                        $queries['wmode'] = 'transparent';
+                    }
+                    if (!isset( $queries['autohide'])) {
+                        $queries['autohide'] = '1';
+                    }
+                    if (!isset( $queries['showinfo'])) {
+                        $queries['showinfo'] = '0';
+                    }
+                    if (!isset( $queries['rel'])) {
+                        $queries['rel'] = '0';
+                    }
+
+                    $iframe_url = esc_url( add_query_arg( $queries, '//www.youtube.com/embed/' . $this->meta['id'] ) );
                     $iframe_url = apply_filters( 'fve_youtube_iframe_url', $iframe_url, $this->meta );
                     $permalink = '//www.youtube.com/watch?v=' . $this->meta['id'];
                     $permalink = apply_filters( 'fve_youtube_permalink', $permalink, $this->meta );
