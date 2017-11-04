@@ -416,7 +416,7 @@ class FluidVideoEmbed{
                     if( isset( $this->meta['aspect'] ) && $this->meta['aspect'] == 'widescreen' ) {
                         $wrapper_padding = '56.25%';
                     }
- 
+
                     parse_str( parse_url( $url, PHP_URL_QUERY ), $queries );
 
                     if (isset( $queries['v'])) {
@@ -433,6 +433,9 @@ class FluidVideoEmbed{
                     }
                     if (!isset( $queries['rel'])) {
                         $queries['rel'] = '0';
+                    }
+                    if (isset( $queries['t'])) {
+                        $queries['start'] = intval($queries['t']);
                     }
 
                     $iframe_url = esc_url( add_query_arg( $queries, '//www.youtube.com/embed/' . $this->meta['id'] ) );
@@ -612,19 +615,15 @@ class FluidVideoEmbed{
 
         switch( $domain ){
             case 'youtube.com':
-                if( preg_match( '/list=(.*)$/i', $url, $youtube_matches ) ) {
+                if( preg_match( '/^[^v]+v.(.{11}).*/i', $url, $youtube_matches ) ) {
                     $video_id = $youtube_matches[1];
-                } elseif( preg_match( '/^[^v]+v.(.{11}).*/i', $url, $youtube_matches ) ) {
-                    $video_id = $youtube_matches[1];
-                } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.*)$/i', $url, $youtube_matches ) ) {
+                } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.{11})$/i', $url, $youtube_matches ) ) {
                     $video_id = $youtube_matches[2];
                 }
                 break;
 
             case 'youtu.be':
-                if( preg_match( '/list=(.*)$/i', $url, $youtube_matches ) ) {
-                    $video_id = $youtube_matches[1];
-                } elseif( preg_match( '/youtu.be\/(.*)$/i', $url, $youtube_matches ) ) {
+                if( preg_match( '/youtu.be\/(.{11})/i', $url, $youtube_matches ) ) {
                     $video_id = $youtube_matches[1];
                 }
                 break;
