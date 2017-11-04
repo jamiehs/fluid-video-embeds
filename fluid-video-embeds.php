@@ -416,8 +416,26 @@ class FluidVideoEmbed{
                     if( isset( $this->meta['aspect'] ) && $this->meta['aspect'] == 'widescreen' ) {
                         $wrapper_padding = '56.25%';
                     }
+ 
+                    parse_str( parse_url( $url, PHP_URL_QUERY ), $queries );
 
-                    $iframe_url = '//www.youtube.com/embed/' . $this->meta['id'] . '?wmode=transparent&modestbranding=1&autohide=1&showinfo=0&rel=0';
+                    if (isset( $queries['v'])) {
+                        unset($queries['v']);
+                    }
+                    if (!isset( $queries['wmode'])) {
+                        $queries['wmode'] = 'transparent';
+                    }
+                    if (!isset( $queries['autohide'])) {
+                        $queries['autohide'] = '1';
+                    }
+                    if (!isset( $queries['showinfo'])) {
+                        $queries['showinfo'] = '0';
+                    }
+                    if (!isset( $queries['rel'])) {
+                        $queries['rel'] = '0';
+                    }
+
+                    $iframe_url = esc_url( add_query_arg( $queries, '//www.youtube.com/embed/' . $this->meta['id'] ) );
                     $iframe_url = apply_filters( 'fve_youtube_iframe_url', $iframe_url, $this->meta );
                     $permalink = '//www.youtube.com/watch?v=' . $this->meta['id'];
                     $permalink = apply_filters( 'fve_youtube_permalink', $permalink, $this->meta );
@@ -594,23 +612,27 @@ class FluidVideoEmbed{
 
         switch( $domain ){
             case 'youtube.com':
-            if( preg_match( '/^[^v]+v.(.{11}).*/i', $url, $youtube_matches ) ) {
-                $video_id = $youtube_matches[1];
-            } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.*)$/i', $url, $youtube_matches ) ) {
-                $video_id = $youtube_matches[2];
-            }
-            break;
+                if( preg_match( '/list=(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                } elseif( preg_match( '/^[^v]+v.(.{11}).*/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                } elseif( preg_match( '/youtube.com\/user\/(.*)\/(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[2];
+                }
+                break;
 
             case 'youtu.be':
-            if( preg_match( '/youtu.be\/(.*)$/i', $url, $youtube_matches ) ) {
-                $video_id = $youtube_matches[1];
-            }
-            break;
+                if( preg_match( '/list=(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                } elseif( preg_match( '/youtu.be\/(.*)$/i', $url, $youtube_matches ) ) {
+                    $video_id = $youtube_matches[1];
+                }
+                break;
 
             case 'vimeo.com':
-            preg_match( '/(clip\:)?(\d+).*$/i', $url, $vimeo_matches );
-            $video_id = $vimeo_matches[2];
-            break;
+                preg_match( '/(clip\:)?(\d+).*$/i', $url, $vimeo_matches );
+                $video_id = $vimeo_matches[2];
+                break;
 
         }
         return $video_id;
