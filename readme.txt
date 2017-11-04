@@ -3,7 +3,7 @@ Contributors: jamie3d
 Donate Link: http://goo.gl/JTYF2
 Tags: video, youtube, vimeo, fluid, flexible, elastic, responsive, 100%, full width, embed, oEmbed
 Requires at least: 3.3
-Tested up to: 4.3.1
+Tested up to: 4.8.3
 Stable tag: trunk
 License: GPLv3
 
@@ -73,6 +73,10 @@ You can't get the video dimensions (and thus aspect ratio) without doing some sl
 4. It also handles different aspect ratio videos from Vimeo quite gracefully. The only circumstance where I've seen black bars is when YouTube serves a 320p or 480p video for mobile.
 
 == Changelog ==
+= 1.2.10 =
+* Adds support for start time via: `t=` parameter
+* Adds support for overriding parameters via query string thanks to: [Woolloff](https://github.com/Woolloff)
+
 = 1.2.9 =
 * You can now filter the video URLs and permalinks with `fve_youtube_iframe_url`, `fve_youtube_permalink`, etc.
 
@@ -132,6 +136,9 @@ Initial release
 
 
 == Upgrade Notice ==
+= 1.2.10 =
+* Adds support for start time, query string overrides
+
 = 1.2.9 =
 * Adds filters for the YouTube and Vimeo URLs
 
